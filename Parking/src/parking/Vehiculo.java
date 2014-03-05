@@ -1,0 +1,15 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package parking;
+
+/**
+ *
+ * @author javi
+ */
+public class Vehiculo {
+    String matricula;
+    int tiempoEntrada;
+    Ticket tickets[];
+}
