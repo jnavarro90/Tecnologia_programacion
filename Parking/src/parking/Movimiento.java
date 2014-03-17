@@ -9,5 +9,6 @@ package parking;
  * @author javi
  */
 public class Movimiento {
-    
+    int plazaOcupada;
+    Vehiculo v;
 }

@@ -11,5 +11,33 @@ package parking;
 public class Vehiculo {
     String matricula;
     int tiempoEntrada;
-    Ticket tickets[];
+    int tiempoSalida;
+
+    public Vehiculo() {
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public int getTiempoEntrada() {
+        return tiempoEntrada;
+    }
+
+    public void setTiempoEntrada(int tiempoEntrada) {
+        this.tiempoEntrada = tiempoEntrada;
+    }
+
+    public int getTiempoSalida() {
+        return tiempoSalida;
+    }
+
+    public void setTiempoSalida(int tiempoSalida) {
+        this.tiempoSalida = tiempoSalida;
+    }
+    
 }
