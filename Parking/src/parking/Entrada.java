@@ -10,7 +10,11 @@ package parking;
  */
 public class Entrada extends Movimiento{
     int tiempoEntrada;
-    private boolean registrar(){
+    public boolean registrar(Vehiculo v,int plazaOcupada){
+        this.matricula = v.getMatricula();
+        this.plazaOcupada = plazaOcupada;
+        this.tiempoEntrada = v.getTiempoEntrada();
+        
         
     return false;
     }

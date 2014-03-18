@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class Principal {
         static Scanner sc = new Scanner(System.in); //Se indica que se quiere leer desde consola
-        static Parcking parcking = new Parcking();
+        static Parking parcking = new Parking();
     	public static int menu(){
 		
                 int opcion;
@@ -32,21 +32,27 @@ public class Principal {
 	
 	public static void comenzar(){
 		int opcion;
-		
-		do{
-			
+		String matricula;
 			opcion = menu();
-		
+		do{
 			switch(opcion){
 			case 1:
-				System.err.println("Entrada");
+                            matricula = sc.next();
+                            parcking.entraVehiculo(matricula);
 				break;
 			case 2:
-				System.err.println("Salida");
-				break;
-			}
+                            matricula = sc.next();
+                            parcking.saleVehiculo(matricula);
+                                break;
+                        case 3:
+                            System.out.println("Saliendo del programa...");
+                            break;
+                        default:
+                            System.out.println("Opción incorrecta.");
+                            break;
+                        }
 			
-		}while(opcion!=3);
+                }while(opcion!=3);
 		
 	}
 	

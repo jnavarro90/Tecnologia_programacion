@@ -10,5 +10,5 @@ package parking;
  */
 public class Movimiento {
     int plazaOcupada;
-    Vehiculo v;
+    String matricula;
 }

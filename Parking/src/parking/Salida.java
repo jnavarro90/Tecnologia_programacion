@@ -10,8 +10,11 @@ package parking;
  */
 public class Salida extends Movimiento{
     int tiempoSalida;
-    private boolean registrar(){
-        
+
+    public boolean registrar(Vehiculo v,int plazaOcupada){
+        this.matricula = v.getMatricula();
+        this.plazaOcupada = plazaOcupada;
+        this.tiempoSalida = v.getTiempoSalida();
     return false;
     }
 }

@@ -4,6 +4,8 @@
  */
 package parking;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 /**
  *
  * @author Javi
@@ -12,14 +14,15 @@ public class Plaza {
     int numero;
     String estado;
     Vehiculo v;
+    Calendar calendar = new GregorianCalendar();
 
-    private Plaza() {
+    public Plaza() {
     }
-    private boolean ocupar(){
-        
+    public boolean ocupar(Vehiculo v, int i){
+    
         return false;
     }
-    private boolean desocupar(){
+    public boolean desocupar(Vehiculo v){
         
         return false;
     }
