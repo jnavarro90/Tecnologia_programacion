@@ -9,13 +9,12 @@ package parking;
  * @author Javi
  */
 public class Entrada extends Movimiento{
-    int tiempoEntrada;
+    int fechaEntrada;
     public boolean registrar(Vehiculo v,int plazaOcupada){
         this.matricula = v.getMatricula();
         this.plazaOcupada = plazaOcupada;
-        this.tiempoEntrada = v.getTiempoEntrada();
-        
-        
+        this.fechaEntrada = v.getFechaEntrada();
+        System.out.println("Entra el vehiculo matricula: "+matricula+", ocupando la plaza: "+plazaOcupada+", a fecha: "+fechaEntrada);
     return false;
     }
 }

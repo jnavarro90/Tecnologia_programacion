@@ -9,41 +9,65 @@ package parking;
  * @author javi
  */
 public class Parking {
-    Plaza plazas[];
+    private final int MAX_PLAZAS = 10;
+    Plaza plazas[] = new Plaza[MAX_PLAZAS];
     Caja cajero;
+
+    public Parking() {
+        cajero = new Caja();
+        for (int i = 0; i < MAX_PLAZAS; i++){
+            Plaza nuevaPlaza = new Plaza(i);
+            plazas[i] = nuevaPlaza;
+        }
+    }
+    
     boolean entraVehiculo(String matricula){
-        boolean salir = false;
+        boolean salir = true;
         
         //Se crea un nuevo vehiculo con la matricula y la fecha se pone en el constructor de vehiculo
         Vehiculo v = new Vehiculo(matricula);
-        
+       
         //Bucle para ver la primera posicion libre del vector plazas
-        for (int i = 0; i<plazas.length || salir;i++){
-            if(plazas[i] != null){
-                
+        for (int i = 0; i < plazas.length && salir; i++){
+            
+            if(!plazas[i].ocupada()){
                 //Se crea una nueva plaza con el vehiculo y el numero de plaza con el metodo ocupar
-                Plaza nuevaPlaza = new Plaza();
-                nuevaPlaza.ocupar(v, i);
-                plazas[i] = nuevaPlaza;
+                
+                if(plazas[i].ocupar(v)){        //Cuando ocupar devuelve true cambia salir a true para salir del bucle
+                    salir = false;
+                }
                 
                 Entrada nuevaEntrada = new Entrada();
                 nuevaEntrada.registrar(v, i);
             }
         }
-        return false;
+        return salir == false;
     }
     boolean saleVehiculo(String matricula){
-    
-        return false;
+        boolean salir = true;
+        
+        //Se crea un nuevo vehiculo con la matricula y la fecha se pone en el constructor de vehiculo
+        Vehiculo v = new Vehiculo(matricula);
+       
+        //Bucle para ver la primera posicion libre del vector plazas
+        for (int i = 0; i < plazas.length && salir; i++){
+            
+            if(plazas[i].equals(v)){
+                //Se crea una nueva plaza con el vehiculo y el numero de plaza con el metodo ocupar
+                if(plazas[i].desocupar()){        //Cuando ocupar devuelve true cambia salir a true para salir del bucle
+                    salir = false;
+                }
+                
+                Salida nuevaSalida = new Salida();
+                nuevaSalida.registrar(v, i);
+            }
+        }
+        return salir == false;
     }
     
     private boolean cobrar(Vehiculo v){
+        Ticket tmpTicket = new Ticket();
     
-        return false;
-    }
-    
-    private boolean registrarMovimiento(){
-        
         return false;
     }
 }

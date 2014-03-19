@@ -11,19 +11,33 @@ import java.util.GregorianCalendar;
  * @author Javi
  */
 public class Plaza {
+    private final int OCUPADO = 1;
+    private final int LIBRE = 0;
     int numero;
-    String estado;
+    int estado;
     Vehiculo v;
-    Calendar calendar = new GregorianCalendar();
 
-    public Plaza() {
+    public Plaza(int numero) {
+        this.numero = numero;
+        this.estado = LIBRE;
     }
-    public boolean ocupar(Vehiculo v, int i){
+
+    public boolean ocupar(Vehiculo v){
+        this.v = v;
+        this.estado = OCUPADO;
+        return true;
+    }
+    public boolean desocupar(){
+        this.v = null;
+        this.estado = LIBRE;
+        return true;
+    }
+    public boolean ocupada(){
+        return this.estado == OCUPADO;
+    }
     
-        return false;
-    }
-    public boolean desocupar(Vehiculo v){
-        
-        return false;
+    public boolean equals(Object obj) {
+        Vehiculo v = (Vehiculo)obj;
+        return this.v.equals(v);
     }
 }

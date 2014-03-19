@@ -33,17 +33,25 @@ public class Principal {
 	public static void comenzar(){
 		int opcion;
 		String matricula;
-			opcion = menu();
+			
 		do{
-			switch(opcion){
+                        opcion = menu();
+                        
+                        switch(opcion){
 			case 1:
+                            System.out.println("Introduzca matricula del vehiculo que entra:");
                             matricula = sc.next();
-                            parcking.entraVehiculo(matricula);
-				break;
+                            if (!parcking.entraVehiculo(matricula)){
+                                System.err.println("No hay sitio en el parking");
+                            }                          
+                            break;
 			case 2:
+                            System.out.println("Introduzca matricula del vehiculo que sale:");
                             matricula = sc.next();
-                            parcking.saleVehiculo(matricula);
-                                break;
+                            if (!parcking.saleVehiculo(matricula)){
+                                System.out.println("El vehiculo no está en el parcking");
+                            }
+                            break;
                         case 3:
                             System.out.println("Saliendo del programa...");
                             break;
