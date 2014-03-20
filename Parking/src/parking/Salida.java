@@ -8,9 +8,12 @@ package parking;
  *
  * @author Javi
  */
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class Salida extends Movimiento{
-    int fechaSalida;
-    int tiempoSalida;
+    Calendar fechaSalida;
 
     public boolean registrar(Vehiculo v,int plazaOcupada){
         this.matricula = v.getMatricula();

@@ -65,9 +65,24 @@ public class Parking {
         return salir == false;
     }
     
-    private boolean cobrar(Vehiculo v){
-        Ticket tmpTicket = new Ticket();
-    
-        return false;
+    public boolean cobrar(String matricula){
+        int numeroTicket = 0;
+        boolean salir = true;
+        
+        //Se crea un nuevo vehiculo con la matricula y la fecha se pone en el constructor de vehiculo
+        Vehiculo v = new Vehiculo(matricula);
+       
+        for (int i = 0; i < plazas.length && salir; i++){
+            
+            if(plazas[i].equals(v)){
+                //Se crea una nueva plaza con el vehiculo y el numero de plaza con el metodo ocupar
+                v = plazas[i].obtenerVehiculo();
+                cajero.crearTicket(numeroTicket, v);
+                
+                numeroTicket++;
+                salir = false;
+            }
+        }
+        return salir == false;
     }
 }

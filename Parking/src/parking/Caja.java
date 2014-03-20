@@ -11,12 +11,20 @@ package parking;
 public class Caja {
     private Tarifa tarifas;
     private Ticket ticket;
-    private float calcularPrecio(){
+    
+    public float calcularPrecio(){
         float precio = 0;
         return precio;
     }
-    private Ticket crearTicket(){
-    Ticket ticket = new Ticket();
+    public Ticket crearTicket(int numeroTicket, Vehiculo v){
+       float tiempo;
+       
+       
+       tiempo = v.obtenerTiempo();
+       
+       
+       
+       ticket = new Ticket(numeroTicket, v, tiempo);
     
     return ticket;
     }

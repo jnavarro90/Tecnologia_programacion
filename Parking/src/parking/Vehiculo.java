@@ -8,40 +8,36 @@ package parking;
  *
  * @author javi
  */
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class Vehiculo {
     private String matricula;
-    private int fechaEntrada;
-    private int fechaSalida;
-
-    private int tiempoEntrada;
-    private int tiempoSalida;
-
-
+    private Calendar fechaEntrada;
+    private Calendar fechaSalida;
+    private Calendar c = Calendar.getInstance();
+    
     public Vehiculo() {
         
     }
     public Vehiculo(String matricula) {
         this.matricula = matricula;
-        fechaEntrada = 300;
-
+        fechaEntrada = new GregorianCalendar();
     }
-    public void setFechaSalida(int tiempoSalida) {
-        this.fechaSalida = tiempoSalida;
-        tiempoEntrada = 300;
-    }
-    public void setTiempoSalida(int tiempoSalida) {
-        this.tiempoSalida = tiempoSalida;
+    
+    public void asignarFechaSalida() {
+        fechaSalida = new GregorianCalendar();
     }
 
     public String getMatricula() {
         return matricula;
     }
 
-    public int getFechaEntrada() {
+    public Calendar getFechaEntrada() {
         return fechaEntrada;
     }
 
-    public int getFechaSalida() {
+    public Calendar getFechaSalida() {
         return fechaSalida;
     }
 
@@ -49,13 +45,9 @@ public class Vehiculo {
         
         Vehiculo v = (Vehiculo)o;
         return matricula.equals(v.matricula);
-    }
-    public int getTiempoEntrada() {
-        return tiempoEntrada;
-    }
+    }  
+    public float obtenerTiempo(){
 
-    public int getTiempoSalida() {
-        return tiempoSalida;
+        return 0;
     }
-    
 }

@@ -15,6 +15,13 @@ public class Ticket {
    float importe;
    float iva;
    float total;
+
+    public Ticket(int numero, Vehiculo v, float tiempo) {
+        this.numero = numero;
+        this.v = v;
+        this.tiempo = tiempo;
+    }
+   
    private boolean imprimir(){
    return false;
    }

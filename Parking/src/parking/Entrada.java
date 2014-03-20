@@ -4,12 +4,14 @@
  */
 package parking;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 /**
  *
  * @author Javi
  */
 public class Entrada extends Movimiento{
-    int fechaEntrada;
+    Calendar fechaEntrada;
     public boolean registrar(Vehiculo v,int plazaOcupada){
         this.matricula = v.getMatricula();
         this.plazaOcupada = plazaOcupada;

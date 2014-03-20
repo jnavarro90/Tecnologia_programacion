@@ -36,6 +36,9 @@ public class Plaza {
         return this.estado == OCUPADO;
     }
     
+    public Vehiculo obtenerVehiculo(){
+        return v;
+    }
     public boolean equals(Object obj) {
         Vehiculo v = (Vehiculo)obj;
         return this.v.equals(v);

@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class Principal {
         static Scanner sc = new Scanner(System.in); //Se indica que se quiere leer desde consola
-        static Parking parcking = new Parking();
+        static Parking parking = new Parking();
     	public static int menu(){
 		
                 int opcion;
@@ -41,18 +41,22 @@ public class Principal {
 			case 1:
                             System.out.println("Introduzca matricula del vehiculo que entra:");
                             matricula = sc.next();
-                            if (!parcking.entraVehiculo(matricula)){
+                            if (!parking.entraVehiculo(matricula)){
                                 System.err.println("No hay sitio en el parking");
                             }                          
                             break;
 			case 2:
                             System.out.println("Introduzca matricula del vehiculo que sale:");
                             matricula = sc.next();
-                            if (!parcking.saleVehiculo(matricula)){
+                            if (!parking.saleVehiculo(matricula)){
                                 System.out.println("El vehiculo no está en el parcking");
                             }
                             break;
                         case 3:
+                            System.out.println("Introduzca matricula del vehiculo que sale:");
+                            matricula = sc.next();
+                            parking.cobrar(matricula);
+                        case 4:
                             System.out.println("Saliendo del programa...");
                             break;
                         default:
@@ -60,7 +64,7 @@ public class Principal {
                             break;
                         }
 			
-                }while(opcion!=3);
+                }while(opcion!=4);
 		
 	}
 	
