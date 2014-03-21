@@ -45,14 +45,11 @@ public class Vehiculo {
         Vehiculo v = (Vehiculo)o;
         return matricula.equals(v.matricula);
     }  
-    public float obtenerTiempo(){       
-            fechaSalida.add(Calendar.SECOND,fechaEntrada.get(Calendar.SECOND));
-            fechaSalida.add(Calendar.MINUTE,fechaEntrada.get(Calendar.MINUTE));
-            fechaSalida.add(Calendar.HOUR, fechaEntrada.get(Calendar.HOUR));
-            fechaSalida.add(Calendar.MONTH, fechaEntrada.get(Calendar.MONTH));
-            fechaSalida.add(Calendar.YEAR,fechaEntrada.get(Calendar.YEAR));
+    public float obtenerTiempo(){ 
             
-            System.out.println(fechaSalida.getTime());
+            System.out.println(fechaSalida.get(Calendar.SECOND));
+            System.out.println(fechaSalida.get(Calendar.MINUTE) - fechaEntrada.get(Calendar.MINUTE));
+            System.out.println(fechaSalida.get(Calendar.HOUR) - fechaEntrada.get(Calendar.HOUR));
         return 0;
     }
 }
