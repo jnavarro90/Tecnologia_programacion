@@ -24,7 +24,7 @@ public class Caja {
        
        
        
-       ticket = new Ticket(numeroTicket, v, tiempo);
+       ticket = new Ticket(numeroTicket, v, tiempo, tiempo,tiempo,tiempo);
     
     return ticket;
     }

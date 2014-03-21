@@ -16,17 +16,17 @@ public class Ticket {
    float iva;
    float total;
 
-    public Ticket(int numero, Vehiculo v, float tiempo) {
+    public Ticket(int numero, Vehiculo v, float tiempo, float importe, float iva, float total) {
         this.numero = numero;
         this.v = v;
         this.tiempo = tiempo;
+        this.importe = importe;
+        this.iva = iva;
+        this.total = total;
     }
    
    private boolean imprimir(){
-   return false;
-   }
-   private boolean modificar(){
-       
-   return false;
+   
+        return false;
    }
 }

@@ -57,6 +57,7 @@ public class Parking {
                 if(plazas[i].desocupar()){        //Cuando ocupar devuelve true cambia salir a true para salir del bucle
                     salir = false;
                 }
+                v.obtenerTiempo();
                 
                 Salida nuevaSalida = new Salida();
                 nuevaSalida.registrar(v, i);

@@ -15,7 +15,6 @@ public class Vehiculo {
     private String matricula;
     private Calendar fechaEntrada;
     private Calendar fechaSalida;
-    private Calendar c = Calendar.getInstance();
     
     public Vehiculo() {
         
@@ -46,8 +45,14 @@ public class Vehiculo {
         Vehiculo v = (Vehiculo)o;
         return matricula.equals(v.matricula);
     }  
-    public float obtenerTiempo(){
-
+    public float obtenerTiempo(){       
+            fechaSalida.add(Calendar.SECOND,fechaEntrada.get(Calendar.SECOND));
+            fechaSalida.add(Calendar.MINUTE,fechaEntrada.get(Calendar.MINUTE));
+            fechaSalida.add(Calendar.HOUR, fechaEntrada.get(Calendar.HOUR));
+            fechaSalida.add(Calendar.MONTH, fechaEntrada.get(Calendar.MONTH));
+            fechaSalida.add(Calendar.YEAR,fechaEntrada.get(Calendar.YEAR));
+            
+            System.out.println(fechaSalida.getTime());
         return 0;
     }
 }
