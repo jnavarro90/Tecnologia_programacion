@@ -17,7 +17,7 @@ public class Caja {
         return precio;
     }
     public Ticket crearTicket(int numeroTicket, Vehiculo v){
-       float tiempo;
+       double tiempo;
        
        
        tiempo = v.obtenerTiempo();

@@ -45,11 +45,11 @@ public class Vehiculo {
         Vehiculo v = (Vehiculo)o;
         return matricula.equals(v.matricula);
     }  
-    public float obtenerTiempo(){ 
-            
-            System.out.println(fechaSalida.get(Calendar.SECOND));
-            System.out.println(fechaSalida.get(Calendar.MINUTE) - fechaEntrada.get(Calendar.MINUTE));
-            System.out.println(fechaSalida.get(Calendar.HOUR) - fechaEntrada.get(Calendar.HOUR));
-        return 0;
+    public double obtenerTiempo(){ 
+            long diferencia = fechaSalida.getTime().getTime()-fechaEntrada.getTime().getTime();
+            double minutos = diferencia / (1000 * 60);
+            System.out.println(fechaSalida.getTime());
+            System.out.println(fechaEntrada.getTime());
+            return 0;               
     }
 }

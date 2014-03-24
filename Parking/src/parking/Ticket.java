@@ -11,12 +11,12 @@ package parking;
 public class Ticket {
    int numero;
    Vehiculo v;
-   float tiempo;
-   float importe;
-   float iva;
-   float total;
+   double tiempo;
+   double importe;
+   double iva;
+   double total;
 
-    public Ticket(int numero, Vehiculo v, float tiempo, float importe, float iva, float total) {
+    public Ticket(int numero, Vehiculo v, double tiempo, double importe, double iva, double total) {
         this.numero = numero;
         this.v = v;
         this.tiempo = tiempo;

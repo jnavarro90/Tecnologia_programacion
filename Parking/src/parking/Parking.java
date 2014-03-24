@@ -53,12 +53,12 @@ public class Parking {
         for (int i = 0; i < plazas.length && salir; i++){
             
             if(plazas[i].equals(v)){
+                plazas[i].obtenerVehiculo().asignarFechaSalida();
+                plazas[i].obtenerVehiculo().obtenerTiempo();
                 //Se crea una nueva plaza con el vehiculo y el numero de plaza con el metodo ocupar
                 if(plazas[i].desocupar()){        //Cuando ocupar devuelve true cambia salir a true para salir del bucle
                     salir = false;
                 }
-                v.asignarFechaSalida();
-                v.obtenerTiempo();
                 
                 Salida nuevaSalida = new Salida();
                 nuevaSalida.registrar(v, i);
