@@ -12,18 +12,26 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Vehiculo {
+
     private String matricula;
     private Calendar fechaEntrada;
     private Calendar fechaSalida;
-    
+    private boolean pagado = false;
+
     public Vehiculo() {
-        
-    }
-    public Vehiculo(String matricula) {
-        this.matricula = matricula;
+
+        //Si se crea sin matricula solo pone la fecha
         fechaEntrada = new GregorianCalendar();
     }
-    
+
+    public Vehiculo(String matricula) {
+        //Si se crea con matricula se comprueba si ya habia una fecha de entrada en caso que no tenga fecha de entrada se le pone nueva.
+        this.matricula = matricula;
+        if (fechaEntrada == null) {
+            fechaEntrada = new GregorianCalendar();
+        }
+    }
+
     public void asignarFechaSalida() {
         fechaSalida = new GregorianCalendar();
     }
@@ -41,15 +49,25 @@ public class Vehiculo {
     }
 
     public boolean equals(Object o) {
-        
-        Vehiculo v = (Vehiculo)o;
+
+        Vehiculo v = (Vehiculo) o;
         return matricula.equals(v.matricula);
-    }  
-    public double obtenerTiempo(){ 
-            long diferencia = fechaSalida.getTime().getTime()-fechaEntrada.getTime().getTime();
-            double minutos = diferencia / (1000 * 60);
-            System.out.println(fechaSalida.getTime());
-            System.out.println(fechaEntrada.getTime());
-            return 0;               
+    }
+
+    public double obtenerTiempo() {
+        double minutos = 0;
+        try {
+            long diferencia = fechaSalida.getTime().getTime() - fechaEntrada.getTime().getTime();
+            minutos = (double) diferencia / (1000 * 60);
+
+        } catch (NullPointerException e) {
+            return -1;
+        }
+
+        return minutos;
+    }
+
+    public void pagando() {
+        pagado = true;
     }
 }

@@ -53,9 +53,10 @@ public class Principal {
                             }
                             break;
                         case 3:
-                            System.out.println("Introduzca matricula del vehiculo que sale:");
+                            System.out.println("Introduzca matricula del vehiculo para cobrarle:");
                             matricula = sc.next();
                             parking.cobrar(matricula);
+                            break;
                         case 4:
                             System.out.println("Saliendo del programa...");
                             break;

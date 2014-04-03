@@ -25,8 +25,8 @@ public class Ticket {
         this.total = total;
     }
    
-   private boolean imprimir(){
-   
-        return false;
+   public boolean imprimir(){
+            System.out.println("Ticket imprimido.");
+        return true;
    }
 }

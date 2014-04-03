@@ -16,7 +16,7 @@ public class Entrada extends Movimiento{
         this.matricula = v.getMatricula();
         this.plazaOcupada = plazaOcupada;
         this.fechaEntrada = v.getFechaEntrada();
-        System.out.println("Entra el vehiculo matricula: "+matricula+", ocupando la plaza: "+plazaOcupada+", a fecha: "+fechaEntrada);
+        System.out.println(" ENTRADA\n matricula: "+matricula+".\n Plaza: "+plazaOcupada+".\n Fecha: "+fechaEntrada.getTime()+".");
     return false;
     }
 }

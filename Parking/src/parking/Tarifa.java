@@ -13,11 +13,11 @@ public class Tarifa {
   float tarifa2;
   float tarifa3;
   
-  private boolean leerTarifas(){
+  public boolean leerTarifas(){
   return false;
   }
   
-  private float calcularImporte(){
+  public double calcularImporte(double tiempo){
   float importe = 0;
   return importe;
   }

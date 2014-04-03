@@ -19,7 +19,7 @@ public class Salida extends Movimiento{
         this.matricula = v.getMatricula();
         this.plazaOcupada = plazaOcupada;
         this.fechaSalida = v.getFechaSalida();
-        System.out.println("Sale el vehiculo matricula: "+matricula+", deja libre la plaza: "+plazaOcupada+", a fecha: "+fechaSalida);
+        System.out.println("SALIDA\n matricula: "+matricula+".\n Plaza: "+plazaOcupada+".\n Fecha: "+fechaSalida.getTime()+".");
     return true;
     }
 }
