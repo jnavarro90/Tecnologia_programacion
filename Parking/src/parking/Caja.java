@@ -36,9 +36,12 @@ public class Caja {
         } else {
             System.out.println("No se puede calcular el tiempo porque falta alguna fecha");
         }
-        ticket = new Ticket(numeroTicket, v, tiempo, tarifas.calcularImporte(tiempo),
+        /*
+        ticket = new TicketCentro(numeroTicket, v, tiempo, tarifas.calcularImporte(tiempo),
                 calcularIva(tarifas.calcularImporte(tiempo)),
                 calcularPrecio(tarifas.calcularImporte(tiempo), calcularIva(tarifas.calcularImporte(tiempo))));
+        */
+        ticket = new TicketCentro(numeroTicket,v,1,1,1,1);
         System.out.println("¿Quiere su ticket?");
         System.out.println("-----------------------------------------");
         System.out.println("\t 1 - Si.");
@@ -50,6 +53,10 @@ public class Caja {
             switch (opcion) {
                 case 1:
                         imprimirTicket();
+                        opcion = 2;
+                    break;
+                case 2:
+                    System.out.println("Volviendo al menu...");
                     break;
                 default:
                     System.out.println("Opción incorrecta.");

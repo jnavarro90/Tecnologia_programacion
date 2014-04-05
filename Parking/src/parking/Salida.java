@@ -16,10 +16,10 @@ public class Salida extends Movimiento{
     Calendar fechaSalida;
 
     public boolean registrar(Vehiculo v,int plazaOcupada){
-        this.matricula = v.getMatricula();
-        this.plazaOcupada = plazaOcupada;
+        setMatricula(v.getMatricula());
+        setPlazaOcupada(plazaOcupada);
         this.fechaSalida = v.getFechaSalida();
-        System.out.println("SALIDA\n matricula: "+matricula+".\n Plaza: "+plazaOcupada+".\n Fecha: "+fechaSalida.getTime()+".");
+        System.out.println("SALIDA\n matricula: "+getMatricula()+".\n Plaza: "+getPlazaOcupada()+".\n Fecha: "+fechaSalida.getTime()+".");
     return true;
     }
 }

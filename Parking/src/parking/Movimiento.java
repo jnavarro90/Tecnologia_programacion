@@ -9,6 +9,23 @@ package parking;
  * @author javi
  */
 public class Movimiento {
-    int plazaOcupada;
-    String matricula;
+    private int plazaOcupada;
+    private String matricula;
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public void setPlazaOcupada(int plazaOcupada) {
+        this.plazaOcupada = plazaOcupada;
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public int getPlazaOcupada() {
+        return plazaOcupada;
+    }
+    
 }

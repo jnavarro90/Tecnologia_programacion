@@ -13,10 +13,10 @@ import java.util.GregorianCalendar;
 public class Entrada extends Movimiento{
     Calendar fechaEntrada;
     public boolean registrar(Vehiculo v,int plazaOcupada){
-        this.matricula = v.getMatricula();
-        this.plazaOcupada = plazaOcupada;
+        setMatricula(v.getMatricula());
+        setPlazaOcupada(plazaOcupada);
         this.fechaEntrada = v.getFechaEntrada();
-        System.out.println(" ENTRADA\n matricula: "+matricula+".\n Plaza: "+plazaOcupada+".\n Fecha: "+fechaEntrada.getTime()+".");
-    return false;
+        System.out.println(" ENTRADA\n matricula: "+getMatricula()+".\n Plaza: "+getPlazaOcupada()+".\n Fecha: "+fechaEntrada.getTime()+".");
+    return true;
     }
 }
