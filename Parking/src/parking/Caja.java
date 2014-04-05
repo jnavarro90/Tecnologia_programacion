@@ -11,22 +11,26 @@ import java.util.Scanner;
  * @author Javi
  */
 public class Caja {
-
+    private final double IVA = 0.21;
     private Tarifa tarifas;
     private Ticket ticket;
     static Scanner sc = new Scanner(System.in); //Se indica que se quiere leer desde consola
 
+    public Caja() {
+        tarifas = new Tarifa();
+    }
+
     public double calcularPrecio(double importe, double iva) {
-        float precio = 0;
-        return precio;
+        return importe + iva;
     }
 
     public double calcularIva(double importe) {
 
-        return 0;
+        return importe * IVA;
     }
 
     public void crearTicket(int numeroTicket, Vehiculo v) {
+        tarifas.leerTarifas();
         double tiempo = 0;
         int opcion;
 
@@ -36,12 +40,10 @@ public class Caja {
         } else {
             System.out.println("No se puede calcular el tiempo porque falta alguna fecha");
         }
-        /*
+        
         ticket = new TicketCentro(numeroTicket, v, tiempo, tarifas.calcularImporte(tiempo),
-                calcularIva(tarifas.calcularImporte(tiempo)),
-                calcularPrecio(tarifas.calcularImporte(tiempo), calcularIva(tarifas.calcularImporte(tiempo))));
-        */
-        ticket = new TicketCentro(numeroTicket,v,1,1,1,1);
+                                    calcularIva(tarifas.calcularImporte(tiempo)),
+                                    calcularPrecio(tarifas.calcularImporte(tiempo), calcularIva(tarifas.calcularImporte(tiempo))));
         System.out.println("¿Quiere su ticket?");
         System.out.println("-----------------------------------------");
         System.out.println("\t 1 - Si.");
@@ -52,8 +54,8 @@ public class Caja {
             opcion = sc.nextInt();
             switch (opcion) {
                 case 1:
-                        imprimirTicket();
-                        opcion = 2;
+                    imprimirTicket();
+                    opcion = 2;
                     break;
                 case 2:
                     System.out.println("Volviendo al menu...");

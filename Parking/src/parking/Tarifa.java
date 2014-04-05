@@ -8,17 +8,11 @@ package parking;
  *
  * @author javi
  */
-public class Tarifa {
-  float tarifa1;
-  float tarifa2;
-  float tarifa3;
+public abstract class Tarifa {
   
-  public boolean leerTarifas(){
+  public boolean leerTramos(){
   return false;
   }
   
-  public double calcularImporte(double tiempo){
-  float importe = 0;
-  return importe;
-  }
+  public abstract double calcularImporte(double tiempo);
 }
