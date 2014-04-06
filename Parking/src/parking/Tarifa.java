@@ -9,10 +9,5 @@ package parking;
  * @author javi
  */
 public abstract class Tarifa {
-  
-  public boolean leerTramos(){
-  return false;
-  }
-  
-  public abstract double calcularImporte(double tiempo);
+  public abstract double calcular(double tiempo);
 }

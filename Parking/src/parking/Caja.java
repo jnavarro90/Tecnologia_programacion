@@ -12,26 +12,40 @@ import java.util.Scanner;
  */
 public class Caja {
     private final double IVA = 0.21;
-    private Tarifa tarifas;
+    private Tramo[] tramos;
     private Ticket ticket;
     static Scanner sc = new Scanner(System.in); //Se indica que se quiere leer desde consola
 
     public Caja() {
-        tarifas = new Tarifa();
+        //tarifas = new Tarifa();
     }
 
-    public double calcularPrecio(double importe, double iva) {
+    private double calcularPrecio(double importe, double iva) {
         return importe + iva;
     }
 
-    public double calcularIva(double importe) {
+    private double calcularIva(double importe) {
 
         return importe * IVA;
     }
-
+    private double calcularImporte(double tiempo){
+      for (int i = 0; i < tramos.length;i++){
+          if(tiempo <tramos[i].getLimite()){
+              
+          }
+      }
+      return 0;  
+    }
+    private void crearTramos(){
+        tramos = new Tramo[2];
+        for (int i = 0; i < tramos.length;i++){
+            tramos[i] = new Tramo(1,1);
+        }
+    }
     public void crearTicket(int numeroTicket, Vehiculo v) {
-        tarifas.leerTarifas();
+        //tarifas.leerTarifas();
         double tiempo = 0;
+        double importe = 0;
         int opcion;
 
         System.out.println("Se esta creando su ticket...");
@@ -40,10 +54,10 @@ public class Caja {
         } else {
             System.out.println("No se puede calcular el tiempo porque falta alguna fecha");
         }
-        
-        ticket = new TicketCentro(numeroTicket, v, tiempo, tarifas.calcularImporte(tiempo),
-                                    calcularIva(tarifas.calcularImporte(tiempo)),
-                                    calcularPrecio(tarifas.calcularImporte(tiempo), calcularIva(tarifas.calcularImporte(tiempo))));
+        importe = calcularImporte(tiempo);
+ //       ticket = new TicketCentro(numeroTicket, v, tiempo, tramos.calcularImporte(tiempo),
+ //                                   calcularIva(tramos.calcularImporte(tiempo)),
+ //                                   calcularPrecio(tramos.calcularImporte(tiempo), calcularIva(tramos.calcularImporte(tiempo))));
         System.out.println("¿Quiere su ticket?");
         System.out.println("-----------------------------------------");
         System.out.println("\t 1 - Si.");
