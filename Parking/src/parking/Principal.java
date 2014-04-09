@@ -19,8 +19,10 @@ public class Principal {
 		System.out.println();
 		System.out.println("-----------------------------------------");
 		System.out.println("Elija una de las opciones:");
-		System.out.println("\t 1 - Entrada.");
-		System.out.println("\t 2 - Salida.");		
+		System.out.println("\t 1 - Entrada de vehiculo.");
+		System.out.println("\t 2 - Salida de vehiculo.");
+                System.out.println("\t 3 - Cobrar a un vehiculo.");
+                System.out.println("\t 4 - Salir.");
 		System.out.println("-----------------------------------------");
 		System.out.print("Opcion: ");
 		
@@ -73,8 +75,6 @@ public class Principal {
 	
 	public static void main(String[] args){
 		Principal.comenzar();
-		
-		
 	}
     
 }

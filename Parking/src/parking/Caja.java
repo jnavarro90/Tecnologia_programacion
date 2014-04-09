@@ -5,19 +5,24 @@
 package parking;
 
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 /**
  *
  * @author Javi
  */
 public class Caja {
+    private final String TARIFAS= "./tarifas.txt";
     private final double IVA = 0.21;
     private Tramo[] tramos;
     private Ticket ticket;
-    static Scanner sc = new Scanner(System.in); //Se indica que se quiere leer desde consola
-
+    private StringTokenizer st;
+    private Scanner sc; //Se indica que se quiere leer desde consola
+    
     public Caja() {
-        //tarifas = new Tarifa();
+        st = new StringTokenizer(TARIFAS, ":");
+        sc = new Scanner(System.in);
+        ticket = new TicketCentro();
     }
 
     private double calcularPrecio(double importe, double iva) {
@@ -29,21 +34,36 @@ public class Caja {
         return importe * IVA;
     }
     private double calcularImporte(double tiempo){
+      double tiempoFinal = 0;
+      double importe = 0;
       for (int i = 0; i < tramos.length;i++){
-          if(tiempo <tramos[i].getLimite()){
-              
+          if(tiempo < tramos[i].getLimiteSuperior()){
+              tiempoFinal = tramos[i].getLimiteSuperior() - tramos[i].getLimiteInferior();
+              importe = importe + tramos[i].calcular(tiempoFinal);
+          }else{
+              tiempoFinal = tiempo - tramos[i].getLimiteInferior();
+              importe = importe + tramos[i].calcular(tiempoFinal);
           }
       }
-      return 0;  
+      return importe;
     }
     private void crearTramos(){
-        tramos = new Tramo[2];
+        int nDatos=st.countTokens();
+        tramos = new Tramo[nDatos];
+        String token;
+        double limiteSuperior;
+        double limiteInferior;
+        double tasa;
         for (int i = 0; i < tramos.length;i++){
-            tramos[i] = new Tramo(1,1);
+            while(st.hasMoreTokens()){
+                 token = st.nextToken();
+                 
+            }
+            tramos[i] = new Tramo(1,1,1);
         }
     }
     public void crearTicket(int numeroTicket, Vehiculo v) {
-        //tarifas.leerTarifas();
+        crearTramos();
         double tiempo = 0;
         double importe = 0;
         int opcion;
@@ -54,10 +74,11 @@ public class Caja {
         } else {
             System.out.println("No se puede calcular el tiempo porque falta alguna fecha");
         }
+        
         importe = calcularImporte(tiempo);
- //       ticket = new TicketCentro(numeroTicket, v, tiempo, tramos.calcularImporte(tiempo),
- //                                   calcularIva(tramos.calcularImporte(tiempo)),
- //                                   calcularPrecio(tramos.calcularImporte(tiempo), calcularIva(tramos.calcularImporte(tiempo))));
+        ticket.modificarTicket(numeroTicket, v, tiempo, importe,
+                                    calcularIva(importe),
+                                    calcularPrecio(importe, calcularIva(importe)));
         System.out.println("¿Quiere su ticket?");
         System.out.println("-----------------------------------------");
         System.out.println("\t 1 - Si.");
@@ -68,7 +89,7 @@ public class Caja {
             opcion = sc.nextInt();
             switch (opcion) {
                 case 1:
-                    imprimirTicket();
+                    ticket.imprimir();
                     opcion = 2;
                     break;
                 case 2:
@@ -84,9 +105,5 @@ public class Caja {
     public void cobrando(Vehiculo v) {
         System.out.println("Abone la cantidad indicada...");
         v.pagando();        
-    }
-
-    public void imprimirTicket() {
-        ticket.imprimir();
     }
 }

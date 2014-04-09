@@ -63,6 +63,13 @@ abstract class Ticket {
     public void setV(Vehiculo v) {
         this.v = v;
     }
-   
+   public void modificarTicket(int numero, Vehiculo v, double tiempo, double importe, double iva, double total){
+        this.numero = numero;
+        this.v = v;
+        this.tiempo = tiempo;
+        this.importe =importe;
+        this.iva = iva;
+        this.total = total;
+   }
    public abstract boolean imprimir();
 }

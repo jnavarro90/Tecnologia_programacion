@@ -11,10 +11,11 @@ package parking;
 public class Parking {
 
     private final int MAX_PLAZAS = 10;
-    Plaza plazas[] = new Plaza[MAX_PLAZAS];
-    Caja cajero;
+    private Plaza plazas[];
+    private Caja cajero;
 
     public Parking() {
+        plazas = new Plaza[MAX_PLAZAS];
         cajero = new Caja();
         for (int i = 0; i < MAX_PLAZAS; i++) {
             Plaza nuevaPlaza = new Plaza(i);
@@ -22,7 +23,7 @@ public class Parking {
         }
     }
 
-    boolean entraVehiculo(String matricula) {
+    public boolean entraVehiculo(String matricula) {
         boolean salir = true;
 
         //Se crea un nuevo vehiculo con la matricula y la fecha se pone en el constructor de vehiculo
@@ -36,15 +37,19 @@ public class Parking {
 
                 if (plazas[i].ocupar(v)) {        //Cuando ocupar devuelve true cambia salir a true para salir del bucle
                     salir = false;
-                    Entrada nuevaEntrada = new Entrada();
-                    nuevaEntrada.registrar(plazas[i].obtenerVehiculo(), i);
+                    Entrada nuevaEntrada = new Entrada(plazas[i].obtenerVehiculo(), i);
+                    nuevaEntrada.registrar();
                 }
             }
         }
+        /**
+         * retornara true siempre haya entrado un vehiculo porque cuando salir es falso,
+         * si no ha podido entrar el vehiculo salir seguira a true entonces la comparación dara false
+         */
         return salir == false;
     }
 
-    boolean saleVehiculo(String matricula) {
+    public boolean saleVehiculo(String matricula) {
         boolean salir = true;
 
         //Se crea un nuevo vehiculo con la matricula y la fecha se pone en el constructor de vehiculo
@@ -58,8 +63,8 @@ public class Parking {
                 //Se crea una nueva plaza con el vehiculo y el numero de plaza con el metodo ocupar
                 if (plazas[i].desocupar()) {        //Cuando ocupar devuelve true cambia salir a true para salir del bucle
                     salir = false;
-                    Salida nuevaSalida = new Salida();
-                    nuevaSalida.registrar(v, i);
+                    Salida nuevaSalida = new Salida(v, i);
+                    nuevaSalida.registrar();
                 }
             }
         }

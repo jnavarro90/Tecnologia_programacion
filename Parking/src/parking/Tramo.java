@@ -6,19 +6,23 @@ package parking;
  * 
  */
 public class Tramo extends Tarifa {
-    private int limite;
-    private double tasa;
+    private int limiteInferior;
+    private int limiteSuperior;
 
-    public Tramo(int limite, double tasa) {
-        this.limite = limite;
-        this.tasa = tasa;
+    public Tramo(int limiteInferior, int limiteSuperior, double tasa) {
+        this.limiteInferior = limiteInferior;
+        this.limiteSuperior = limiteSuperior;
+        setTasa(tasa);
     }
     
     public double calcular(double tiempo) {
-        return tiempo * tasa;
+        return tiempo * getTasa();
     }
 
-    public int getLimite() {
-        return limite;
+    public int getLimiteSuperior() {
+        return limiteSuperior;
+    }
+    public int getLimiteInferior(){
+        return limiteInferior;
     }
 }

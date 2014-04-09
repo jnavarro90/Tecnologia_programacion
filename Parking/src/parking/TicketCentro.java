@@ -10,13 +10,8 @@ package parking;
  */
 public class TicketCentro extends Ticket{
     private final String NOMBRE = "Parking Centro S.L";
-    public TicketCentro(int numero, Vehiculo v, double tiempo, double importe, double iva, double total) {
-        setNumero(numero);
-        setV(v);
-        setTiempo(tiempo);
-        setImporte(importe);
-        setIva(iva);
-        setTotal(total);
+    public TicketCentro() {
+        
     }
     public boolean imprimir(){
         System.out.println(NOMBRE+"\nTicket: "+getNumero()+"\nEntrada: "+getV().getFechaEntrada().getTime()+
