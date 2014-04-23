@@ -4,6 +4,9 @@
  */
 package parking;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 /**
  *
  * @author javi
@@ -14,7 +17,7 @@ public class Parking {
     private Plaza plazas[];
     private Caja cajero;
 
-    public Parking() {
+    public Parking(){
         plazas = new Plaza[MAX_PLAZAS];
         cajero = new Caja();
         for (int i = 0; i < MAX_PLAZAS; i++) {
