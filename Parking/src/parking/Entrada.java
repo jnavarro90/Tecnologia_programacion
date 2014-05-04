@@ -4,6 +4,10 @@
  */
 package parking;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 /**
@@ -12,6 +16,7 @@ import java.util.GregorianCalendar;
  */
 public class Entrada extends Movimiento{
     Calendar fechaEntrada;
+    String entrada;
 
     public Entrada(Vehiculo v,int plazaOcupada) {
         setMatricula(v.getMatricula());
@@ -20,7 +25,14 @@ public class Entrada extends Movimiento{
     }
     
     public boolean registrar(){
-        System.out.println(" ENTRADA\n matricula: "+getMatricula()+".\n Plaza: "+getPlazaOcupada()+".\n Fecha: "+fechaEntrada.getTime()+".");
+        entrada = "\nENTRADA\n matricula: "+getMatricula()+".\n Plaza: "+getPlazaOcupada()+".\n Fecha: "+fechaEntrada.getTime()+"."+"\n";
+        try {
+            PrintWriter fOut = new PrintWriter(new BufferedWriter(new FileWriter("/Users/Javi/NetBeansProjects/Tecnologia_programacion/Parking/src/parking/movimientos.txt", true)));
+            fOut.write(entrada);
+            fOut.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     return true;
     }
 }

@@ -6,6 +6,8 @@ package parking;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,6 +18,7 @@ public class Parking {
     private final int MAX_PLAZAS = 10;
     private Plaza plazas[];
     private Caja cajero;
+    private int numeroTicket = 0;
 
     public Parking(){
         plazas = new Plaza[MAX_PLAZAS];
@@ -64,7 +67,8 @@ public class Parking {
             if (plazas[i].equals(v)) {
                 v = plazas[i].obtenerVehiculo();
                 //Se crea una nueva plaza con el vehiculo y el numero de plaza con el metodo ocupar
-                if (plazas[i].desocupar()) {        //Cuando ocupar devuelve true cambia salir a true para salir del bucle
+                if (v.haPagado()){
+                    plazas[i].desocupar();
                     salir = false;
                     Salida nuevaSalida = new Salida(v, i);
                     nuevaSalida.registrar();
@@ -75,7 +79,7 @@ public class Parking {
     }
 
     public boolean cobrar(String matricula) {
-        int numeroTicket = 0;
+
         boolean salir = true;
 
         //Se crea un nuevo vehiculo con la matricula y la fecha se pone en el constructor de vehiculo
@@ -85,11 +89,9 @@ public class Parking {
 
             if (plazas[i].equals(v)) {
                 plazas[i].obtenerVehiculo().asignarFechaSalida();
-                //Se crea una nueva plaza con el vehiculo y el numero de plaza con el metodo ocupar
-                System.out.println("Cobrando al vehiculo...");
-                cajero.cobrando(plazas[i].obtenerVehiculo());
-                cajero.crearTicket(numeroTicket, plazas[i].obtenerVehiculo());
-
+                
+                System.out.println("Cobrando al vehiculo matricula: "+v.getMatricula());
+                cajero.cobrando( numeroTicket, plazas[i].obtenerVehiculo());
 
                 numeroTicket++;
                 salir = false;

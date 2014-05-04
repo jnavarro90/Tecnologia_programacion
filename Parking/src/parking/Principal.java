@@ -6,16 +6,15 @@ package parking;
 
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
-import recursos.Lee;
+import java.util.Scanner;
 /**
  *
  * @author javi
  */
 public class Principal{
 
-    static Lee leer = new Lee(); //Se indica que se quiere leer desde consola
     static Parking parking = new Parking();
-
+    static Scanner sc = new Scanner(System.in); //Se indica que se quiere leer desde consola
     public static int menu() {
 
         int opcion;
@@ -30,7 +29,7 @@ public class Principal{
         System.out.print("Opcion: ");
 
  
-            opcion = leer.leeEntero();
+        opcion = sc.nextInt();
         
         return opcion;
 
@@ -46,21 +45,21 @@ public class Principal{
             switch (opcion) {
                 case 1:
                     System.out.println("Introduzca matricula del vehiculo que entra:");
-                    matricula = leer.leeString();
+                    matricula = sc.next();
                     if (!parking.entraVehiculo(matricula)) {
                         System.err.println("No hay sitio en el parking");
                     }
                     break;
                 case 2:
                     System.out.println("Introduzca matricula del vehiculo que sale:");
-                    matricula = leer.leeString();
+                    matricula = sc.next();
                     if (!parking.saleVehiculo(matricula)) {
                         System.out.println("El vehiculo no está en el parcking");
                     }
                     break;
                 case 3:
                     System.out.println("Introduzca matricula del vehiculo para cobrarle:");
-                    matricula = leer.leeString();
+                    matricula = sc.next();
                     parking.cobrar(matricula);
                     break;
                 case 4:

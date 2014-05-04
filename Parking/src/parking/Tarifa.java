@@ -8,9 +8,9 @@ package parking;
  *
  * @author javi
  */
-public abstract class Tarifa {
+  abstract class Tarifa {
   private double tasa;
-  public abstract double calcular(double tiempo);
+
 
     public void setTasa(double tasa) {
         this.tasa = tasa;
@@ -19,5 +19,5 @@ public abstract class Tarifa {
     public double getTasa() {
         return tasa;
     }
-  
+    public abstract double calcular(double tiempo);
 }

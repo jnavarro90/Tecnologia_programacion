@@ -67,7 +67,12 @@ public class Vehiculo {
         return minutos;
     }
 
-    public void pagando() {
+    public boolean pagando() {
         pagado = true;
+        return true;
+    }
+    
+    public boolean haPagado(){
+        return pagado;
     }
 }
