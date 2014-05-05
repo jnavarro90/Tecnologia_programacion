@@ -1,14 +1,18 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Clase Movimiento
+ * Version 1
+ * Fecha 2-4-2014
  */
 package parking;
 
 /**
- *
- * @author javi
+ * Clase que gestiona los movimientos que se realizan en el parking.
+ * @author Javi
+ * @version 1
  */
 public class Movimiento {
+    
+    /*Declaracion de variables*/
     private int plazaOcupada;
     private String matricula;
 

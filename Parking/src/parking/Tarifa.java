@@ -1,17 +1,20 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Clase Tarifa
+ * Version 1
+ * Fecha 2-4-2014
  */
 package parking;
 
 /**
- *
- * @author javi
+ * Clase para saber las tasas del parking.
+ * @author Javi
+ * @version 1
  */
   abstract class Tarifa {
+      
+  /*Declaracion de variables*/
   private double tasa;
-
-
+  
     public void setTasa(double tasa) {
         this.tasa = tasa;
     }

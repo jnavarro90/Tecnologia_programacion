@@ -1,18 +1,25 @@
+/*
+ * Clase Caja
+ * Version 1
+ * Fecha 2-4-2014
+ */
 package parking;
 
+/**
+ * Clase que gestiona el cobrar a los clientes y crear tickets.
+ * @author Javi
+ * @version 1
+ */
 import java.io.*;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Javi
- */
 public class Caja {
     /*Declaracion de constantes*/
-    private final String TARIFAS = "/Users/Javi/NetBeansProjects/Tecnologia_programacion/Parking/src/parking/tarifas.txt";
+    private final String RUTA ="/Users/Javi/NetBeansProjects/Tecnologia_programacion/Parking/src/parking/";
+    private final String TARIFAS = RUTA+"tarifas.txt";
     private final double IVA = 0.21;
     
     /*Declaracion de variables*/
@@ -21,7 +28,11 @@ public class Caja {
     String s;
     String fichero;
     int contadorLineas = 0;
-
+/*
+ * El constructor de Caja lee el fichero tarifas y le pasa su contenido a un String 
+ * después crea los tramos necesarios
+ */
+    
     public Caja() {
         try {
             /*Lee cada linea de un fichero y lo pasa a una cadena con delimitadores ":" 
@@ -47,18 +58,26 @@ public class Caja {
         
         crearTramos();
     }
-
+    /*
+     * calculaPrecio
+     * calcularPrecio recibe el importe y el iva y los suma para calcular el total
+     * Es private porque no se usa en otra clase.
+     */
     private double calcularPrecio(double importe, double iva) {
         return importe + iva;
     }
-
+    /*
+     * calcularIva recibe el importe y calcula el iva
+     * Es private porque no se usa en otra clase.
+     */
     private double calcularIva(double importe) {
 
         return importe * IVA;
     }
     
-    /**
-     * El metodo calcularImporte calcula pasandole un tiempo con los datos de los tramos el importe a pagar.
+    /*
+     * calcularImporte calcula pasandole un tiempo con los datos de los tramos el importe a pagar.
+     * Usa otros metodos de esta clase para calcular todo.
      */
     private double calcularImporte(double tiempo) {
         double tiempoRestado = tiempo;
@@ -81,8 +100,9 @@ public class Caja {
         return total;
     }
 
-    /**
-     * El metodo crearTramos con el numero de lineas que tenia el fichero crea nuevos tramos y los guarda en un array.
+    /*
+     * crearTramos con el numero de lineas que tenia el fichero crea nuevos tramos y los guarda en un array.
+     * Es private porque no se usa en otra clase.
      */
     private void crearTramos() {
         tramos = new Tramo[contadorLineas];
@@ -101,10 +121,11 @@ public class Caja {
         }
     }
     
-    /**
+    /*
      * El metodo crearTicket sirve para crear un ticket con los datos de el metodo cobrando que luego se imprime.
+     * Es private porque no se usa en otra clase.
      */
-    public void crearTicket(int numeroTicket, Vehiculo v, double tiempo, double importe, double iva, double total) {
+    private void crearTicket(int numeroTicket, Vehiculo v, double tiempo, double importe, double iva, double total) {
         TicketCentro ticket;
 
         System.out.println("Se esta creando su ticket...");
@@ -115,10 +136,10 @@ public class Caja {
         
     }
 
-    /**
+    /*
      * El metodo cobrando sirve para calcular el importe total de un vehiculo y preguntar si quiere su ticket.
      */
-    public void cobrando(int numeroTicket, Vehiculo v) {
+   public void cobrando(int numeroTicket, Vehiculo v) {
 
         int opcion = 1;
         double tiempo = 0;
@@ -141,13 +162,13 @@ public class Caja {
             System.out.println("Puede retirar su vehiculo.");
         }
         System.out.println("¿Quiere su ticket?");
-        System.out.println("-----------------------------------------");
+        System.out.println("-----------------------------------------");                        /*Menu para preguntar si imprimir un ticket*/
         System.out.println("\t 1 - Si.");
         System.out.println("\t 2 - No.");
         System.out.println("-----------------------------------------");
         System.out.print("Opcion: ");
         do {
-            Scanner sc = new Scanner(System.in); //Se indica que se quiere leer desde consola
+            Scanner sc = new Scanner(System.in);
             opcion = sc.nextInt();
             switch (opcion) {
                 case 1:

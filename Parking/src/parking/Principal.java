@@ -1,20 +1,25 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Clase Principal
+ * Version 1
+ * Fecha 2-4-2014
  */
 package parking;
 
+/**
+ * Clase para comenzar la aplicación del parking.
+ * @author Javi
+ * @version 1
+ */
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-/**
- *
- * @author javi
- */
+
 public class Principal{
 
+    /*Declaracion de constantes*/
     static Parking parking = new Parking();
-    static Scanner sc = new Scanner(System.in); //Se indica que se quiere leer desde consola
+    static Scanner sc = new Scanner(System.in);
+    
     public static int menu() {
 
         int opcion;
@@ -75,6 +80,6 @@ public class Principal{
     }
 
     public static void main(String[] args){
-        Principal.comenzar();
+        comenzar();
     }
 }
