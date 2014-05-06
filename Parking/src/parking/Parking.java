@@ -46,7 +46,8 @@ public class Parking {
     }
 
     /*
-     * entraVehiculo ocupa una plaza del array con un coche y registra el movimiento.
+     * entraVehiculo ocupa una plaza del array con un coche y 
+     * registra el movimiento.
      */
     public boolean entraVehiculo(String matricula) {
 
@@ -56,9 +57,11 @@ public class Parking {
         //Bucle para ver la primera posicion libre del vector plazas
         for (int i = 0; i < plazas.length && salir; i++) {
             if (!plazas[i].ocupada()) {
-                if (plazas[i].ocupar(v)) {        /*Cuando ocupar devuelve true cambia salir a true para salir del bucle*/
+                if (plazas[i].ocupar(v)) {        /*Cuando ocupar devuelve 
+                 * true cambia salir a true para salir del bucle*/
                     salir = false;
-                    Entrada nuevaEntrada = new Entrada(plazas[i].obtenerVehiculo(), i);
+                    Entrada nuevaEntrada = 
+                            new Entrada(plazas[i].obtenerVehiculo(), i);
                     nuevaEntrada.registrar();
                 }
             }
@@ -73,7 +76,8 @@ public class Parking {
     }
 
     /*
-     * saleVehiculo desocupa una plaza del array con un coche y registra el movimiento.
+     * saleVehiculo desocupa una plaza del array con un coche 
+     * y registra el movimiento.
      */
     public boolean saleVehiculo(String matricula) {
 
@@ -84,14 +88,17 @@ public class Parking {
         for (int i = 0; i < plazas.length && salir; i++) {
 
             if (plazas[i].equals(v)) {
-                v = plazas[i].obtenerVehiculo();    /*Hay sacar el vehiculo de la plaza para poder modificarlo y usar su metodo desocupar.*/
+                v = plazas[i].obtenerVehiculo();    
+                /*Hay sacar el vehiculo de la plaza para poder modificarlo 
+                 * y usar su metodo desocupar.*/
                 if (v.haPagado()) {
                     plazas[i].desocupar();
                     
                     Salida nuevaSalida = new Salida(v, i);
                     nuevaSalida.registrar();
                 }else{
-                    System.out.println("No ha podido salir porque el vehiculo todavia no ha pagado.");
+                    System.out.println("No ha podido salir "
+                            + "porque el vehiculo todavia no ha pagado.");
                 }
                 salir = false;
             }else{
@@ -113,7 +120,8 @@ public class Parking {
     public boolean cobrar(String matricula) {
 
         boolean salir = true;
-        //Se crea un nuevo vehiculo con la matricula y la fecha se pone en el constructor de vehiculo
+        /*Se crea un nuevo vehiculo con la matricula y la 
+        fecha se pone en el constructor de vehiculo*/
         Vehiculo v = new Vehiculo(matricula);
 
         for (int i = 0; i < plazas.length && salir; i++) {
@@ -121,7 +129,8 @@ public class Parking {
             if (plazas[i].equals(v)) {
                 plazas[i].obtenerVehiculo().asignarFechaSalida();
 
-                System.out.println("Cobrando al vehiculo matricula: " + v.getMatricula());
+                System.out.println("Cobrando al vehiculo "
+                        + "matricula: " + v.getMatricula());
                 cajero.cobrando(numeroTicket, plazas[i].obtenerVehiculo());
 
                 numeroTicket++;

@@ -22,7 +22,8 @@ public class Vehiculo {
     private boolean pagado = false;
 
     /*
-     * El constructor de Vehiculo necesita una matricula la asigna al vehiculo y le pone la fecha de entrada.
+     * El constructor de Vehiculo necesita una matricula la 
+     * asigna al vehiculo y le pone la fecha de entrada.
      */
     public Vehiculo(String matricula) {
         this.matricula = matricula;
@@ -55,16 +56,19 @@ public class Vehiculo {
     }
 
     /*
-     * obtenerTiempo resta las dos fechas para sacar los minutos que ha estado dentro del parking.
+     * obtenerTiempo resta las dos fechas para sacar 
+     * los minutos que ha estado dentro del parking.
      */
     public double obtenerTiempo() {
         double minutos = 0;
         try {
-            long diferencia = fechaSalida.getTime().getTime() - fechaEntrada.getTime().getTime();
+            long diferencia = fechaSalida.getTime().getTime() 
+                    - fechaEntrada.getTime().getTime();
             minutos = (double) diferencia / (1000 * 60);
 
         } catch (NullPointerException e) {
-            return -1;                      /*Si falta alguna fecha devolveria -1 para poder tratarlo fuera*/
+            return -1;         
+            /*Si falta alguna fecha devolveria -1 para poder tratarlo fuera*/
         }
 
         return minutos;

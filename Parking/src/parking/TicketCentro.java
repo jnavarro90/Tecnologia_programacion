@@ -26,7 +26,8 @@ public class TicketCentro extends Ticket {
      * El constructor de TicketCentro añade los valores las variable de su clase
      * super(Ticket).
      */
-    public TicketCentro(int numero, Vehiculo v, double tiempo, double importe, double iva, double total) {
+    public TicketCentro(int numero, Vehiculo v, double tiempo, double 
+            importe, double iva, double total) {
         super(numero, v, tiempo, importe, iva, total);
     }
     /*
@@ -34,12 +35,18 @@ public class TicketCentro extends Ticket {
      * abstracta imprimir de Ticket.
      */
     public boolean imprimir() {
-        String ticket = NOMBRE + "\nTicket: " + getNumero() + "\nEntrada: " + getV().getFechaEntrada().getTime()
-                + "\nSalida: " + getV().getFechaSalida().getTime() + "\nMatricula: " + getV().getMatricula() + "\nImporte: "
-                + getImporte() + "\nIVA: " + getIva() + "\nTotal: " + getTotal();
+        String ticket = NOMBRE + "\nTicket: " + getNumero() + "\nEntrada: " 
+                + getV().getFechaEntrada().getTime()
+                + "\nSalida: " + getV().getFechaSalida().getTime() + 
+                "\nMatricula: " + getV().getMatricula() + "\nImporte: "
+                + getImporte() + "\nIVA: " + getIva() + "\nTotal: " + 
+                getTotal();
 
         try {
-            PrintWriter fOut = new PrintWriter(new BufferedWriter(new FileWriter("/Users/Javi/NetBeansProjects/Tecnologia_programacion/Parking/src/parking/ticket"+getNumero()+".txt")));
+            PrintWriter fOut = new PrintWriter(new BufferedWriter(
+                    new FileWriter("/Users/Javi/NetBeansProjects/"
+                    + "Tecnologia_programacion/Parking/src/parking/ticket"
+                    +getNumero()+".txt")));
             fOut.write(ticket);
             fOut.close();
         } catch (IOException e) {

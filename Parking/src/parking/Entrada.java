@@ -23,7 +23,8 @@ import java.util.GregorianCalendar;
 public class Entrada extends Movimiento{
     
     /*Declaracion de constantes*/
-    private final String RUTA ="/Users/Javi/NetBeansProjects/Tecnologia_programacion/Parking/src/parking/";
+    private final String RUTA ="/Users/Javi/NetBeansProjects"
+            + "/Tecnologia_programacion/Parking/src/parking/";
     
     /*Declaracion de variables*/
     Calendar fechaEntrada;
@@ -42,9 +43,12 @@ public class Entrada extends Movimiento{
      * registrar guarda los datos del movimiento en un fichero.
      */
     public void registrar(){
-        entrada = "\nENTRADA\n matricula: "+getMatricula()+".\n Plaza: "+getPlazaOcupada()+".\n Fecha: "+fechaEntrada.getTime()+"."+"\n";
+        entrada = "\nENTRADA\n matricula: "+getMatricula()+".\n Plaza: "
+                +getPlazaOcupada()+".\n Fecha: "+fechaEntrada.getTime()+
+                "."+"\n";
         try {
-            PrintWriter fOut = new PrintWriter(new BufferedWriter(new FileWriter(RUTA+"movimientos.txt", true)));
+            PrintWriter fOut = new PrintWriter(new BufferedWriter(
+                    new FileWriter(RUTA+"movimientos.txt", true)));
             fOut.write(entrada);
             fOut.close();
         } catch (IOException e) {
