@@ -18,7 +18,8 @@ import java.util.logging.Logger;
 
 public class Caja {
     /*Declaracion de constantes*/
-    private final String RUTA ="/Users/Javi/NetBeansProjects/Tecnologia_programacion/Parking/src/parking/";
+    private final String RUTA ="/Users/Javi/NetBeansProjects/"
+            + "Tecnologia_programacion/Parking/src/parking/";
     private final String TARIFAS = RUTA+"tarifas.txt";
     private final double IVA = 0.21;
     
@@ -29,14 +30,17 @@ public class Caja {
     String fichero;
     int contadorLineas = 0;
 /*
- * El constructor de Caja lee el fichero tarifas y le pasa su contenido a un String 
+ * El constructor de Caja lee el fichero tarifas y le pasa 
+ * su contenido a un String 
  * después crea los tramos necesarios
  */
     
     public Caja() {
         try {
-            /*Lee cada linea de un fichero y lo pasa a una cadena con delimitadores ":" 
-             y añade un contador para saber las lineas que tiene el archivo que se usara saber el numero de tramos.*/
+            /*Lee cada linea de un fichero y lo pasa 
+             * a una cadena con delimitadores ":" 
+             *y añade un contador para saber las lineas 
+             * que tiene el archivo que se usara saber el numero de tramos.*/
             BufferedReader fIn =
                     new BufferedReader(new FileReader(TARIFAS));
             while ((s = fIn.readLine()) != null) {
@@ -54,14 +58,16 @@ public class Caja {
         } catch (Exception e) {
             System.out.println("Error en la lectura del fichero.");
         }
-        st = new StringTokenizer(fichero, ":");                     /*Crea un stingTokenizer con la cadena que ha extraido del fichero y con el delimitador ":".*/
+        st = new StringTokenizer(fichero, ":");                     
+        /*Crea un stingTokenizer con la cadena que ha extraido del 
+         * fichero y con el delimitador ":".*/
         
         crearTramos();
     }
     /*
      * calculaPrecio
-     * calcularPrecio recibe el importe y el iva y los suma para calcular el total
-     * Es private porque no se usa en otra clase.
+     * calcularPrecio recibe el importe y el iva y los suma 
+     * para calcular el total. Es private porque no se usa en otra clase.
      */
     private double calcularPrecio(double importe, double iva) {
         return importe + iva;
@@ -76,7 +82,8 @@ public class Caja {
     }
     
     /*
-     * calcularImporte calcula pasandole un tiempo con los datos de los tramos el importe a pagar.
+     * calcularImporte calcula pasandole un tiempo con los datos de los
+     * tramos el importe a pagar.
      * Usa otros metodos de esta clase para calcular todo.
      */
     private double calcularImporte(double tiempo) {
@@ -86,22 +93,27 @@ public class Caja {
             if (tiempo >= tramos[i].getLimiteSuperior()) {
                 if (tramos[i].getLimiteSuperior() == 0) {
                     total = total + tramos[i].calcular(tiempoRestado);
-                    tiempoRestado = 0;      /* Si llega aquí se pone a cero para que salga del bucle*/     
+                    tiempoRestado = 0;      /* Si llega aquí se pone a 
+                     * cero para que salga del bucle*/     
                     
                 } else {
-                    total = total + tramos[i].calcular(tramos[i].getLimiteSuperior() - tramos[i].getLimiteInferior());
+                    total = total + tramos[i].calcular(
+                            tramos[i].getLimiteSuperior() 
+                            - tramos[i].getLimiteInferior());
                     tiempoRestado = tiempo - tramos[i].getLimiteSuperior();
                 }
             } else {
                 total = total + tramos[i].calcular(tiempoRestado);
-                tiempoRestado = 0;      /* Si llega aquí se pone a cero para que salga del bucle*/
+                tiempoRestado = 0;      
+                /* Si llega aquí se pone a cero para que salga del bucle*/
             }
         }
         return total;
     }
 
     /*
-     * crearTramos con el numero de lineas que tenia el fichero crea nuevos tramos y los guarda en un array.
+     * crearTramos con el numero de lineas que tenia el 
+     * fichero crea nuevos tramos y los guarda en un array.
      * Es private porque no se usa en otra clase.
      */
     private void crearTramos() {
@@ -122,10 +134,12 @@ public class Caja {
     }
     
     /*
-     * El metodo crearTicket sirve para crear un ticket con los datos de el metodo cobrando que luego se imprime.
+     * El metodo crearTicket sirve para crear un ticket con los datos
+     * de el metodo cobrando que luego se imprime.
      * Es private porque no se usa en otra clase.
      */
-    private void crearTicket(int numeroTicket, Vehiculo v, double tiempo, double importe, double iva, double total) {
+    private void crearTicket(int numeroTicket, Vehiculo v, double tiempo,
+            double importe, double iva, double total) {
         TicketCentro ticket;
 
         System.out.println("Se esta creando su ticket...");
@@ -137,7 +151,8 @@ public class Caja {
     }
 
     /*
-     * El metodo cobrando sirve para calcular el importe total de un vehiculo y preguntar si quiere su ticket.
+     * El metodo cobrando sirve para calcular el importe total de un vehiculo
+     * y preguntar si quiere su ticket.
      */
    public void cobrando(int numeroTicket, Vehiculo v) {
 
@@ -149,11 +164,15 @@ public class Caja {
         if (v.obtenerTiempo() != -1) {
             tiempo = v.obtenerTiempo();
         } else {
-            System.out.println("No se puede calcular el tiempo porque falta alguna fecha");
+            System.out.println("No se puede calcular el tiempo"
+                    + " porque falta alguna fecha");
         }
-
-        //importe = calcularImporte(tiempo);        /*esta es la linea que tiene que estar en el programa.*/
-        importe = calcularImporte(67);              /* esta linea es para probar diferentes tiempos.*/
+        /*esta es la linea que tiene que estar en el programa.*/
+        //importe = calcularImporte(tiempo);
+        
+        
+        /* esta linea es para probar diferentes tiempos.*/
+        importe = calcularImporte(67);              
         iva = calcularIva(importe);
         total = calcularPrecio(importe, calcularIva(importe));
         
@@ -161,8 +180,10 @@ public class Caja {
         if (v.pagando()){
             System.out.println("Puede retirar su vehiculo.");
         }
+        
+         /*Menu para preguntar si imprimir un ticket*/
         System.out.println("¿Quiere su ticket?");
-        System.out.println("-----------------------------------------");                        /*Menu para preguntar si imprimir un ticket*/
+        System.out.println("-----------------------------------------");                       
         System.out.println("\t 1 - Si.");
         System.out.println("\t 2 - No.");
         System.out.println("-----------------------------------------");
