@@ -44,8 +44,7 @@ public class TicketCentro extends Ticket {
 
         try {
             PrintWriter fOut = new PrintWriter(new BufferedWriter(
-                    new FileWriter("/Users/Javi/NetBeansProjects/"
-                    + "Tecnologia_programacion/Parking/src/parking/ticket"
+                    new FileWriter("./ticket"
                     +getNumero()+".txt")));
             fOut.write(ticket);
             fOut.close();

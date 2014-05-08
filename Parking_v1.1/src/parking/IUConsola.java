@@ -1,5 +1,5 @@
 /*
- * Clase Principal
+ * Clase IUConsola
  * Version 1
  * Fecha 2-4-2014
  */
@@ -14,9 +14,15 @@ import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Principal{
+public class IUConsola{
 
-    /*Declaracion de constantes*/
+    /*Declaracion de variables*/
+    static final int ENTRA_VEHICULO = 1;
+    static final int SALE_VEHICULO = 2;
+    static final int COBRA_VEHICULO = 3;
+    static final int SALIR = 4;
+    
+    /*Declaracion de variables*/
     static Parking parking = new Parking();
     static Scanner sc = new Scanner(System.in);
     
@@ -48,26 +54,26 @@ public class Principal{
                 opcion = menu();
 
             switch (opcion) {
-                case 1:
+                case ENTRA_VEHICULO:
                     System.out.println("Introduzca matricula del vehiculo que entra:");
                     matricula = sc.next();
                     if (!parking.entraVehiculo(matricula)) {
                         System.err.println("No hay sitio en el parking");
                     }
                     break;
-                case 2:
+                case SALE_VEHICULO:
                     System.out.println("Introduzca matricula del vehiculo que sale:");
                     matricula = sc.next();
                     if (!parking.saleVehiculo(matricula)) {
                         System.out.println("El vehiculo no está en el parcking");
                     }
                     break;
-                case 3:
+                case COBRA_VEHICULO:
                     System.out.println("Introduzca matricula del vehiculo para cobrarle:");
                     matricula = sc.next();
                     parking.cobrar(matricula);
                     break;
-                case 4:
+                case SALIR:
                     System.out.println("Saliendo del programa...");
                     break;
                 default:
@@ -75,11 +81,12 @@ public class Principal{
                     break;
             }
 
-        } while (opcion != 4);
+        } while (opcion != SALIR);
 
     }
 
     public static void main(String[] args){
-        comenzar();
+        IUConsola iuConsola = new IUConsola();
+        IUConsola.comenzar();
     }
 }

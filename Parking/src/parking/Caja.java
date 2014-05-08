@@ -18,15 +18,17 @@ import java.util.logging.Logger;
 
 public class Caja {
     /*Declaracion de constantes*/
-    private final String RUTA ="/Users/Javi/NetBeansProjects/Tecnologia_programacion/Parking/src/parking/";
-    private final String TARIFAS = RUTA+"tarifas.txt";
+    private final String TARIFAS = "./tarifas.txt";
+    private final int CREAR_TICKET = 1;
+    private final int VOLVER = 2;
     private final double IVA = 0.21;
+    
     
     /*Declaracion de variables*/
     private Tramo[] tramos;
     private StringTokenizer st;
-    String s;
-    String fichero;
+    private String s;
+    private String fichero;
     int contadorLineas = 0;
 /*
  * El constructor de Caja lee el fichero tarifas y le pasa su contenido a un String 
@@ -99,7 +101,24 @@ public class Caja {
         }
         return total;
     }
+    /*
+     * obtenerTiempo resta las dos fechas para sacar 
+     * los minutos que ha estado dentro del parking.
+     */
+    private double obtenerTiempo(Vehiculo v) {
+        double minutos = 0;
+        try {
+            long diferencia = v.getFechaSalida().getTime().getTime() 
+                    - v.getFechaEntrada().getTime().getTime();
+            minutos = (double) diferencia / (1000 * 60);
 
+        } catch (NullPointerException e) {
+            return -1;         
+            /*Si falta alguna fecha devolveria -1 para poder tratarlo fuera*/
+        }
+
+        return minutos;
+    }
     /*
      * crearTramos con el numero de lineas que tenia el fichero crea nuevos tramos y los guarda en un array.
      * Es private porque no se usa en otra clase.
@@ -139,15 +158,15 @@ public class Caja {
     /*
      * El metodo cobrando sirve para calcular el importe total de un vehiculo y preguntar si quiere su ticket.
      */
-   public void cobrando(int numeroTicket, Vehiculo v) {
+   public void cobrar(int numeroTicket, Vehiculo v) {
 
         int opcion = 1;
         double tiempo = 0;
         double importe = 0;
         double iva;
         double total;
-        if (v.obtenerTiempo() != -1) {
-            tiempo = v.obtenerTiempo();
+        if (obtenerTiempo(v) != -1) {
+            tiempo = obtenerTiempo(v);
         } else {
             System.out.println("No se puede calcular el tiempo porque falta alguna fecha");
         }
@@ -171,17 +190,17 @@ public class Caja {
             Scanner sc = new Scanner(System.in);
             opcion = sc.nextInt();
             switch (opcion) {
-                case 1:
+                case CREAR_TICKET:
                     crearTicket(numeroTicket, v, tiempo, importe, iva, total);
-                    opcion = 2;
+                    opcion = VOLVER;
                     break;
-                case 2:
+                case VOLVER:
                     System.out.println("Volviendo al menu...");
                     break;
                 default:
                     System.out.println("Opción incorrecta.");
                     break;
             }
-        } while (opcion != 2);
+        } while (opcion != VOLVER);
     }
 }

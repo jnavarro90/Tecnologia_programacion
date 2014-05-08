@@ -131,7 +131,7 @@ public class Parking {
 
                 System.out.println("Cobrando al vehiculo "
                         + "matricula: " + v.getMatricula());
-                cajero.cobrando(numeroTicket, plazas[i].obtenerVehiculo());
+                cajero.cobrar(numeroTicket, plazas[i].obtenerVehiculo());
 
                 numeroTicket++;
                 salir = false;

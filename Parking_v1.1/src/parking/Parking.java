@@ -15,6 +15,8 @@ package parking;
  */
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,7 +29,7 @@ public class Parking {
     /*
      * Declaracion de variables
      */
-    private Plaza plazas[];
+    private List<Plaza> plazas;
     private Caja cajero;
     private int numeroTicket = 0;
 
@@ -37,11 +39,11 @@ public class Parking {
      * crea un cajero de la clase Caja que servira para cobrar a los clientes.
      */
     public Parking() {
-        plazas = new Plaza[MAX_PLAZAS];
+        plazas = new ArrayList<Plaza>();
         cajero = new Caja();
         for (int i = 0; i < MAX_PLAZAS; i++) {
             Plaza nuevaPlaza = new Plaza(i);
-            plazas[i] = nuevaPlaza;
+            plazas.add(nuevaPlaza);
         }
     }
 
@@ -55,13 +57,13 @@ public class Parking {
         Vehiculo v = new Vehiculo(matricula);
 
         //Bucle para ver la primera posicion libre del vector plazas
-        for (int i = 0; i < plazas.length && salir; i++) {
-            if (!plazas[i].ocupada()) {
-                if (plazas[i].ocupar(v)) {        /*Cuando ocupar devuelve 
+        for (int i = 0; i < plazas.size() && salir; i++) {
+            if (!plazas.get(i).ocupada()) {
+                if (plazas.get(i).ocupar(v)) {        /*Cuando ocupar devuelve 
                  * true cambia salir a true para salir del bucle*/
                     salir = false;
                     Entrada nuevaEntrada = 
-                            new Entrada(plazas[i].obtenerVehiculo(), i);
+                            new Entrada(plazas.get(i).obtenerVehiculo(), i);
                     nuevaEntrada.registrar();
                 }
             }
@@ -85,14 +87,14 @@ public class Parking {
         Vehiculo v = new Vehiculo(matricula);
 
         //Bucle para ver la primera posicion libre del vector plazas
-        for (int i = 0; i < plazas.length && salir; i++) {
+        for (int i = 0; i < plazas.size() && salir; i++) {
 
-            if (plazas[i].equals(v)) {
-                v = plazas[i].obtenerVehiculo();    
+            if (plazas.get(i).equals(v)) {
+                v = plazas.get(i).obtenerVehiculo();    
                 /*Hay sacar el vehiculo de la plaza para poder modificarlo 
                  * y usar su metodo desocupar.*/
                 if (v.haPagado()) {
-                    plazas[i].desocupar();
+                    plazas.get(i).desocupar();
                     
                     Salida nuevaSalida = new Salida(v, i);
                     nuevaSalida.registrar();
@@ -124,14 +126,13 @@ public class Parking {
         fecha se pone en el constructor de vehiculo*/
         Vehiculo v = new Vehiculo(matricula);
 
-        for (int i = 0; i < plazas.length && salir; i++) {
+        for (int i = 0; i < plazas.size() && salir; i++) {
 
-            if (plazas[i].equals(v)) {
-                plazas[i].obtenerVehiculo().asignarFechaSalida();
+            if (plazas.get(i).equals(v)) {
+                plazas.get(i).obtenerVehiculo().asignarFechaSalida();
 
-                System.out.println("Cobrando al vehiculo "
-                        + "matricula: " + v.getMatricula());
-                cajero.cobrando(numeroTicket, plazas[i].obtenerVehiculo());
+                System.out.println("Cobrando al vehiculo matricula: " + v.getMatricula());
+                cajero.cobrar(numeroTicket, plazas.get(i).obtenerVehiculo());
 
                 numeroTicket++;
                 salir = false;
