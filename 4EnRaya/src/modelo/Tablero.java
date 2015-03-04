@@ -8,21 +8,29 @@ import java.io.Serializable;
  * @version 1
  */
 public class Tablero implements Serializable{
-    Ficha casillas[][];
-    int movimientos;
+    private Ficha casillas[][];
+    private int movimientos;
     public Tablero() {
         
     }
     
-    private void vaciarTablero(){
+    public void vaciarTablero(){
     
     }
     
-    private void fichaValida(Ficha f){
+    public void fichaValida(Ficha f){
     
     }
     
-    private void comprobarLineas(){
+    public void comprobarLineas(){
     
+    }
+
+    public Ficha[][] getCasillas() {
+        return casillas;
+    }
+    
+    public void movimientoHecho() {
+        this.movimientos += 1;
     }
 }

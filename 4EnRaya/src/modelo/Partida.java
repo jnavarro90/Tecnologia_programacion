@@ -8,28 +8,32 @@ import java.io.Serializable;
  * @version 1
  */
 public class Partida implements Serializable{
-    String nombre;
-    Tablero tablero;
-    Jugador jugadorA;
-    Jugador jugadorB;
-    int turno; 
+    private String nombre;
+    private Tablero tablero;
+    private Jugador jugadorA;
+    private Jugador jugadorB;
+    private int turno; 
     public Partida() {
+        
+    }
+    
+    public void guardar(){
     
     }
     
-    private void guardar(){
+    public void recuperar(){
     
     }
     
-    private void recuperar(){
-    
+    public void cambiarTurno(){
+        if (turno == 1){
+            turno = 2;
+        }else{
+            turno  = 1;
+        }
     }
     
-    private void cambiarTurno(){
-    
-    }
-    
-    private void obtenerTablero(){
+    public void obtenerTablero(){
     
     }
     

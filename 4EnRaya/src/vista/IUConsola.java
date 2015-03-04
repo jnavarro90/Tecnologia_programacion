@@ -12,17 +12,25 @@ public class IUConsola {
     
     }
     
-    private void dibujar(Tablero t){
-    
+    public void dibujar(Ficha[][] casillas){
+        
     }
     
-    private int pedirColumna(){
+    public int pedirColumna(){
     
         return 0;
     }
     
-    private int menu(){
+    public int menu(){
     
         return 0;
+    }
+    
+    public void mensaje(String m){
+        System.out.println(m);
+    }
+    
+    public void mensajeError(String m){
+        System.out.println("ERROR: "+m);
     }
 }

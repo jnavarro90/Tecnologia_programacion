@@ -8,6 +8,14 @@ import vista.IUConsola;
  * @version 
  */
 public class ControlJuego {
-    IUConsola interfaz;
-    Partida partidaActual;
+    private IUConsola interfaz;
+    private Partida partidaActual;
+
+    public ControlJuego() {
+    
+    }
+    
+    public void comenzar(){
+    
+    }
 }

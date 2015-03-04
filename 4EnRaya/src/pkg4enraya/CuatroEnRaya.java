@@ -1,7 +1,5 @@
 package pkg4enraya;
 
-import modelo.Partida;
-import vista.IUConsola;
 import controlador.ControlJuego;
 /**
  *
@@ -12,11 +10,10 @@ public class CuatroEnRaya {
     /**
      * @param args the command line arguments
      */
-    Partida modelo;
-    IUConsola vista;
-    ControlJuego control;
+    public static ControlJuego control;
     public static void main(String[] args) {
-        
+        control = new ControlJuego();
+        control.comenzar();
     }
     
 }
