@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @version 1
  */
 public class Tablero implements Serializable{
-    private Ficha casillas[][];
+    private int casillas[][];
     private int movimientos;
     public Tablero() {
         
@@ -18,7 +18,7 @@ public class Tablero implements Serializable{
     
     }
     
-    public void fichaValida(Ficha f){
+    public void fichaValida(int c){
     
     }
     
@@ -26,7 +26,7 @@ public class Tablero implements Serializable{
     
     }
 
-    public Ficha[][] getCasillas() {
+    public int[][] getCasillas() {
         return casillas;
     }
     

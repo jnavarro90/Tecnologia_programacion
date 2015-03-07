@@ -12,7 +12,7 @@ public class IUConsola {
     
     }
     
-    public void dibujar(Ficha[][] casillas){
+    public void dibujar(Tablero t){
         
     }
     
