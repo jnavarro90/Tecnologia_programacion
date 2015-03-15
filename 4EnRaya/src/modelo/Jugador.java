@@ -25,4 +25,13 @@ public class Jugador implements Serializable{
         return simbolo;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String toString() {
+        return "Jugador "+this.nombre;
+    }
+
+    
 }
