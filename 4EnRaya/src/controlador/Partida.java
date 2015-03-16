@@ -56,10 +56,12 @@ public class Partida implements Serializable{
                  * Si la jugada es correcta inserta la ficha si no seguira 
                  * sin saltar turno
                  */
-                if(tablero.jugada(opcionCol)){
+                if(tablero.jugada(opcionCol-1, jugadorActual.getSimbolo())){
                     this.cambiarTurno();
                     //this.limpiarPantalla();
                     tablero.dibujar(jugador1, jugador2, turno);
+                }else{
+                    mensajeError("No se pudo realizar su jugada, vuelve a intentarlo.");
                 }
             }
         }
