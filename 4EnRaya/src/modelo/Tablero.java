@@ -47,6 +47,10 @@ public class Tablero implements Serializable{
         
     }
 
+    public boolean esEmpate(){
+        return movimientos == (MAX_COLUMNAS*MAX_FILAS);
+    }
+    
     public String[][] getCasillas() {
         return this.casillas;
     }
