@@ -12,7 +12,7 @@ import modelo.Tablero;
 /**
  *
  * @author Javi Navarro
- * @version 1
+ * @version 1.2
  */
 public class Partida implements Serializable{
     private String nombre;
@@ -25,12 +25,12 @@ public class Partida implements Serializable{
     public Partida() throws IOException {
         this.finalPartida = false;
         this.turno = true;
-        leer = new Scanner(System.in);
+        this.leer = new Scanner(System.in);
         this.mensaje("Introduce el nombre del Jugador 1: ");
-        jugador1 = new Jugador(leer.nextLine(), "#");
-        mensaje("Introduce el nombre del Jugador 2: ");
-        jugador2 = new Jugador(leer.nextLine(), "o");
-        tablero = new Tablero();
+        this.jugador1 = new Jugador(this.leer.nextLine(), "#");
+        this.mensaje("Introduce el nombre del Jugador 2: ");
+        this.jugador2 = new Jugador(this.leer.nextLine(), "o");
+        this.tablero = new Tablero();
     }
     
     /**
@@ -39,12 +39,12 @@ public class Partida implements Serializable{
     public void jugar(){
         int opcionCol;
         Jugador jugadorActual;
-        tablero.dibujar(jugador1, jugador2, turno);
-        while(!finalPartida){
-            if(turno){
-                jugadorActual = jugador1;
+        this.tablero.dibujar(this.jugador1, this.jugador2, this.turno);
+        while(!this.finalPartida){
+            if(this.turno){
+                jugadorActual = this.jugador1;
             }else{
-                jugadorActual = jugador2;
+                jugadorActual = this.jugador2;
             }
             opcionCol = pedirJugada(jugadorActual);
             /**
@@ -56,12 +56,19 @@ public class Partida implements Serializable{
                  * Si la jugada es correcta inserta la ficha si no seguira 
                  * sin saltar turno
                  */
-                if(tablero.jugada(opcionCol-1, jugadorActual.getSimbolo())){
+                if(this.tablero.jugada(opcionCol-1, jugadorActual.getSimbolo())){
                     this.cambiarTurno();
-                    //this.limpiarPantalla();
-                    tablero.dibujar(jugador1, jugador2, turno);
+                    
+                    this.tablero.dibujar(this.jugador1, this.jugador2, this.turno);
+                    if(this.tablero.finDePartida()){
+                        this.mensaje("¡Ganador: "+jugadorActual.getNombre()+"!");
+                        break;
+                    }else if(this.tablero.esEmpate()){
+                        this.mensaje("La partida termina en empate.");
+                        break;
+                    }
                 }else{
-                    mensajeError("No se pudo realizar su jugada, vuelve a intentarlo.");
+                    this.mensajeError("No se pudo realizar su jugada, vuelve a intentarlo.");
                 }
             }
         }
@@ -82,30 +89,31 @@ public class Partida implements Serializable{
      * Cambia la variable turno de valor
      */
     public void cambiarTurno(){
-        turno = !turno;
+        this.turno = !this.turno;
     }
     
     /**
      *  Pide a un jugador una jugada para que se realize en el juego
+     * Este método lo haría la vista
      * @param j
      * @return opcion
-     * @throws java.io.IOException
      */
     public int pedirJugada(Jugador j){
-        int opcion;
-        mensaje("\n"+j.getNombre()+" introduce un columna: ");
+        int opcion = 0;
+        mensaje("\n"+j.getNombre()+" introduce una columna: ");
         try {
-            opcion = leer.nextInt();
-        } catch (InputMismatchException ex) {
-            opcion = -1;
+            opcion = this.leer.nextInt();
+        } catch (InputMismatchException e) {
+            leer.next();
             mensajeError("Opcion incorrecta.");
+            return -1;
         }
         return opcion;
     }
     
     /**
      * Escribe un mensaje por pantalla 
-     * Este método lo haria la vista
+     * Este método lo haría la vista
      * @param mensaje 
      */
     
@@ -115,25 +123,10 @@ public class Partida implements Serializable{
     
     /**
      * Escribe un mensaje de error por pantalla 
-     * Este metodo lo haria la vista
+     * Este método lo haría la vista
      * @param error 
      */
     private void mensajeError(String error){
         System.out.println("ERROR: "+error);
     }
-    
-    private void limpiarPantalla(){
-    try{
-        String os = System.getProperty("os.name");
-        if (os.contains("Windows")){
-            Runtime.getRuntime().exec("cls");
-        }else{
-            Runtime.getRuntime().exec("clear");
-        }
-    }
-    catch (final Exception e)
-    {
-        this.mensajeError("No se pudo limpiar la pantalla.");
-    }
-}
 }

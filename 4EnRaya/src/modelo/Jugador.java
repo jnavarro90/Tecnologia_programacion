@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  *
  * @author Javi Navarro
- * @version 1
+ * @version 1.2
  */
 public class Jugador implements Serializable{
     private String nombre;

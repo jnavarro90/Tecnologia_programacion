@@ -5,7 +5,7 @@ import java.io.IOException;
 /**
  *
  * @author Javi Navarro
- * @version 1
+ * @version 1.2
  */
 public class CuatroEnRaya {
     /**
