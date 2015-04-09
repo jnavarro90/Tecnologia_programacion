@@ -10,9 +10,8 @@ import java.io.Serializable;
 public class Tablero implements Serializable{
     private final int  MAX_COLUMNAS = 7;
     private final int MAX_FILAS = 6;
+    private final int ERROR = -1;
     private String casillas[][];
-    private int ultimaCol;
-    private int ultimaFil;
     private int movimientos;
     public Tablero() {
         this.casillas = new String[MAX_FILAS][MAX_COLUMNAS];
@@ -36,25 +35,22 @@ public class Tablero implements Serializable{
      * @return true o false dependiendo si se ha realizado bien o mal 
      * la insercion de la ficha
      */
-    public boolean esJugadaValida(int col, String sim){
+    public int esJugadaValida(int col, String sim){
         if(col< MAX_COLUMNAS-1 && col >= 0){
-            for(int i = 1; i < MAX_FILAS; i++){ 
-               if(this.casillas [i][col].equals(".")){  
-                    this.casillas[i][col] = sim;
-                    /**
-                     * Guarda la ultima fila y la ultima columna 
-                     * para la comprobacion y suma 1 a los movimientos.
-                     */
-                    this.ultimaCol = col;
-                    this.ultimaFil = i;
-                    this.movimientoHecho();
-                    return true;
+            for(int i = 1; i < MAX_FILAS; i++){
+               if(this.casillas [i][col].equals(".")){
+                    return i;
                 }
             }
-            return false;
+            return ERROR;
         }else{
-            return false;
+            return ERROR;
         }
+    }
+    
+    public void ponerFicha(int fil, int col, String sim){
+        this.casillas[fil][col] = sim;
+        this.movimientoHecho();
     }
     
     /**
@@ -62,20 +58,8 @@ public class Tablero implements Serializable{
      * cuatro en raya en diagonal, horizontal o vertical.
      * @return true si en el final de la partida y false si no lo es
      */
-    public boolean finDePartida(){
-        //Horizontal
-        if(this.comprHorizontal()) return true;
-        //Vertical
-        if(this.comprVertical()) return true;
-        //Diagonal izquierda
-        if(this.comprDiagonalIzq()) return true;
-        //Diagonal derecha
-        if(this.comprDiagonalDer()) return true;
-        /**
-         * Si uno de los anteriores if es true saldra con true y si no 
-         * llega aqui con false
-         */
-        return false;
+    public boolean finDePartida(int fil, int col){
+        return (comprVertical(fil, col) || comprHorizontal(fil, col) || comprDiagonalDer(fil, col) || comprDiagonalIzq(fil, col));
     }
 
     /**
@@ -83,10 +67,10 @@ public class Tablero implements Serializable{
     * comprobando con dos iteradores en la posicon horizontal 
     * @return true si hay cuatro en raya y false si no lo hay
     */
-    private boolean comprHorizontal(){
-        int iteradorDer = ultimaCol+1;
-        int iteradorIzq = ultimaCol-1;
-        int cont = 1;
+    private boolean comprHorizontal(int fil, int col){
+        int iteradorDer = col+1;
+        int iteradorIzq = col-1;
+        int numeroFichas = 1;
         boolean itIz = true;
         boolean itDe = true;
         while(true){
@@ -99,22 +83,22 @@ public class Tablero implements Serializable{
             }
             
             if(itDe){
-                if(this.casillas[ultimaFil][ultimaCol].equals(this.casillas[ultimaFil][iteradorDer])){
-                    cont++;
+                if(this.casillas[fil][col].equals(this.casillas[fil][iteradorDer])){
+                    numeroFichas++;
                     iteradorDer++;
                 }else{
                     itDe = false;
                 }
             }
             if(itIz){
-                if(this.casillas[ultimaFil][ultimaCol].equals(this.casillas[ultimaFil][iteradorIzq])){
-                    cont++;
+                if(this.casillas[fil][col].equals(this.casillas[fil][iteradorIzq])){
+                    numeroFichas++;
                     iteradorIzq--;
                 }else{
                     itIz = false;
                 }
             }
-            if(cont == 4){ //Si ha encontrado 4 fichas iguales devuelve true
+            if(numeroFichas == 4){ //Si ha encontrado 4 fichas iguales devuelve true
                 return true;
             }else if(!itDe && !itIz){ //Si no puede avanzar por la derecha ni por la izquierda sale del bucle
                 break;
@@ -128,9 +112,9 @@ public class Tablero implements Serializable{
     * comprobando con dos iteradores en la posicon vertical 
     * @return true si hay cuatro en raya y false si no lo hay
     */
-    private boolean comprVertical(){
-        int iteradorBot = ultimaFil-1;
-        int cont = 1;
+    private boolean comprVertical(int fil, int col){
+        int iteradorBot = fil-1;
+        int numeroFichas = 1;
         boolean itbot = true;    
         while(true){
             
@@ -139,14 +123,14 @@ public class Tablero implements Serializable{
                 itbot = false;
             }
             if(itbot){
-                if(this.casillas[ultimaFil][ultimaCol].equals(this.casillas[iteradorBot][ultimaCol])){
-                    cont++;
+                if(this.casillas[fil][col].equals(this.casillas[iteradorBot][col])){
+                    numeroFichas++;
                     iteradorBot--;
                 }else{
                     itbot = false;
                 }
             }
-            if(cont == 4){ //Si ha encontrado 4 fichas iguales devuelve true
+            if(numeroFichas == 4){ //Si ha encontrado 4 fichas iguales devuelve true
                 return true;
             }else if(!itbot){ //Si no puede avanzar hacia abajo sale del bucle
                 break;
@@ -161,12 +145,12 @@ public class Tablero implements Serializable{
     * en la posicon diagonal hacia la derecha 
     * @return true si hay cuatro en raya y false si no lo hay
     */
-    private boolean comprDiagonalDer(){
-        int iteradorDiaDerfil = ultimaFil+1;
-        int iteradorDiaDercol = ultimaCol+1;
-        int iteradorDiaIzqfil = ultimaFil-1;
-        int iteradorDiaIzqcol = ultimaCol-1;
-        int cont = 1;
+    private boolean comprDiagonalDer(int fil, int col){
+        int iteradorDiaDerfil = fil+1;
+        int iteradorDiaDercol = col+1;
+        int iteradorDiaIzqfil = fil-1;
+        int iteradorDiaIzqcol = col-1;
+        int numeroFichas = 1;
         boolean ittop = true;
         boolean itbot = true;    
         while(true){
@@ -180,8 +164,8 @@ public class Tablero implements Serializable{
             }
             
             if(ittop){
-                if(this.casillas[ultimaFil][ultimaCol].equals(this.casillas[iteradorDiaDerfil][iteradorDiaDercol])){
-                    cont++;
+                if(this.casillas[fil][col].equals(this.casillas[iteradorDiaDerfil][iteradorDiaDercol])){
+                    numeroFichas++;
                     iteradorDiaDerfil++;
                     iteradorDiaDercol++;
                 }else{
@@ -189,15 +173,15 @@ public class Tablero implements Serializable{
                 }
             }
             if(itbot){
-                if(this.casillas[ultimaFil][ultimaCol].equals(this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol])){
-                    cont++;
+                if(this.casillas[fil][col].equals(this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol])){
+                    numeroFichas++;
                     iteradorDiaIzqfil--;
                     iteradorDiaIzqcol--;
                 }else{
                     itbot = false;
                 }
             }
-            if(cont == 4){ //Si ha encontrado 4 fichas iguales devuelve true
+            if(numeroFichas == 4){ //Si ha encontrado 4 fichas iguales devuelve true
                 return true;
             }else if(!ittop && !itbot){ //Si no puede avanzar por la derecha ni por la izquierda sale del bucle
                 break;
@@ -213,12 +197,12 @@ public class Tablero implements Serializable{
     * en la posicon diagonal hacia la izquierda 
     * @return true si hay cuatro en raya y false si no lo hay
     */
-    private boolean comprDiagonalIzq(){
-        int iteradorDiaDerfil = ultimaFil-1;
-        int iteradorDiaDercol = ultimaCol+1;
-        int iteradorDiaIzqfil = ultimaFil+1;
-        int iteradorDiaIzqcol = ultimaCol-1;
-        int cont = 1;
+    private boolean comprDiagonalIzq(int fil, int col){
+        int iteradorDiaDerfil = fil-1;
+        int iteradorDiaDercol = col+1;
+        int iteradorDiaIzqfil = fil+1;
+        int iteradorDiaIzqcol = col-1;
+        int numeroFichas = 1;
         boolean ittop = true;
         boolean itbot = true;    
         while(true){
@@ -231,8 +215,8 @@ public class Tablero implements Serializable{
             }
             
             if(ittop){
-                if(this.casillas[ultimaFil][ultimaCol].equals(this.casillas[iteradorDiaDerfil][iteradorDiaDercol])){
-                    cont++;
+                if(this.casillas[fil][col].equals(this.casillas[iteradorDiaDerfil][iteradorDiaDercol])){
+                    numeroFichas++;
                     iteradorDiaDerfil--;
                     iteradorDiaDercol++;
                 }else{
@@ -240,15 +224,15 @@ public class Tablero implements Serializable{
                 }
             }
             if(itbot){
-                if(this.casillas[ultimaFil][ultimaCol].equals(this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol])){
-                    cont++;
+                if(this.casillas[fil][col].equals(this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol])){
+                    numeroFichas++;
                     iteradorDiaIzqfil++;
                     iteradorDiaIzqcol--;
                 }else{
                     itbot = false;
                 }
             }
-            if(cont == 4){ //Si ha encontrado 4 fichas iguales devuelve true
+            if(numeroFichas == 4){ //Si ha encontrado 4 fichas iguales devuelve true
                 return true;
             }else if(!ittop && !itbot){ //Si no puede avanzar por la derecha ni por la izquierda sale del bucle
                 break; 
@@ -281,17 +265,17 @@ public class Tablero implements Serializable{
      * @return  
      */
     
-    public boolean dibujar(Jugador j1, Jugador j2, Boolean t){
+    public boolean dibujar(Jugador j1, Jugador j2){
         int ultimaFila = MAX_FILAS;
         System.out.println("|                    |Marcador");
         System.out.print("|     4 en Raya      | "+j1.getGanadas()+"\t"+j1.getNombre());
-        if(t){
+        if(j1.miTurno()){
             System.out.println("  <<");
         }else{
             System.out.println(" ");
         }
         System.out.print("|____________________| "+j2.getGanadas()+"\t"+j2.getNombre());
-        if(!t){
+        if(!j1.miTurno()){
             System.out.println("  <<");
         }else{
             System.out.println(" ");

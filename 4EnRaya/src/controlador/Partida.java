@@ -2,7 +2,6 @@ package controlador;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -26,7 +25,7 @@ public class Partida implements Serializable{
     private Tablero tablero;
     private Jugador jugador1;
     private Jugador jugador2;
-    private int codigoJugadores;
+    private int nombre;
     private Scanner leer;
     public Partida(){
         this.leer = new Scanner(System.in);
@@ -34,7 +33,7 @@ public class Partida implements Serializable{
         this.jugador1 = new Jugador(this.leer.nextLine(), "#", true);
         this.mensaje("Introduce el nombre del Jugador 2: ");
         this.jugador2 = new Jugador(this.leer.nextLine(), "o", false);
-        codigoJugadores = jugador1.hashCode() + jugador2.hashCode();
+        nombre = jugador1.hashCode() + jugador2.hashCode();
         this.tablero = new Tablero();
     }
     
@@ -42,14 +41,14 @@ public class Partida implements Serializable{
      * El metodo jugar lleva toda la lógica de control del juego
      * @return True o false segun quiera el usuario en menuFinPartida
      */
-    public boolean jugar() throws IOException{
-        int opcionCol;
+    public boolean jugar(){
+        int columna;
+        int fila;
         boolean salir = false;
         Jugador jugadorActual;
         //Si es la primera partida
         if(jugador1.getGanadas() == 0 && jugador2.getGanadas() == 0){
-            //MENU INICIAL
-            //falta si le das a cargar y falla no continue con partida nueva
+            //MENU INICIAL 
                 switch (this.menuInicial()){
                     case SALIR_JUEGO:
                         salir = true;
@@ -57,20 +56,20 @@ public class Partida implements Serializable{
                     case CARGAR_PARTIDA:
                         if(this.cargar()){
                             this.mensaje("La partida se ha cargado correctamente.");
-                            this.tablero.dibujar(this.jugador1, this.jugador2, this.jugador1.miTurno());
+                            this.tablero.dibujar(this.jugador1, this.jugador2);
                         }else{
                             this.mensajeError("No tienes ninguna partida guardada.\n"
                                     + "Se ha empezado una partida nueva.");
-                            this.tablero.dibujar(this.jugador1, this.jugador2, this.jugador1.miTurno());
+                            this.tablero.dibujar(this.jugador1, this.jugador2);
                         }
                         break;
                     case NUEVA_PARTIDA:
-                        this.tablero.dibujar(this.jugador1, this.jugador2, this.jugador1.miTurno());
+                        this.tablero.dibujar(this.jugador1, this.jugador2);
                         break;
                 }
         }else{
             tablero.vaciar();
-            this.tablero.dibujar(jugador1, jugador2, this.jugador1.miTurno());
+            this.tablero.dibujar(jugador1, jugador2);
         }
             
         while(!salir){
@@ -79,21 +78,27 @@ public class Partida implements Serializable{
             }else{
                 jugadorActual = this.jugador2;
             }
-            opcionCol = pedirJugada(jugadorActual);
+            columna = pedirJugada(jugadorActual);
             /**
              * Si la opcion no es -1 no hay error y si hay error 
              * seguira sin saltar turno
             */
-            if(opcionCol != ERROR){
+            if(columna != ERROR){
                 /**
-                 * Si la jugada es correcta inserta la ficha si no seguira 
+                 * Si la columna no es correcta dara error y seguira 
                  * sin saltar turno
                  */
-                if(this.tablero.esJugadaValida(opcionCol-1, jugadorActual.getSimbolo())){
+                fila = this.tablero.esJugadaValida(columna-1, jugadorActual.getSimbolo());
+                if( fila != ERROR){
+                    /**
+                    * Si la fila no es correcta (porque esta lleno) dara error y seguira 
+                    * sin saltar turno
+                    */
+                    this.tablero.ponerFicha(fila, columna-1, jugadorActual.getSimbolo());
                     this.cambiarTurno();
                     
-                    this.tablero.dibujar(this.jugador1, this.jugador2, this.jugador1.miTurno());
-                    if(this.tablero.finDePartida()){
+                    this.tablero.dibujar(this.jugador1, this.jugador2);
+                    if(this.tablero.finDePartida(fila, columna-1)){
                         this.mensaje("¡Ganador: "+jugadorActual.getNombre()+"!");
                         jugadorActual.victoria();
                         break;
@@ -113,7 +118,7 @@ public class Partida implements Serializable{
                 case GUARDAR_PARTIDA:
                     if(this.guardar()){
                         this.mensaje("La partida se ha guardado correctamente.");
-                        this.tablero.dibujar(this.jugador1, this.jugador2, this.jugador1.miTurno());
+                        this.tablero.dibujar(this.jugador1, this.jugador2);
                     }else{
                         this.mensajeError("La partida no se ha guardado correctamente.");
                     }
@@ -121,7 +126,7 @@ public class Partida implements Serializable{
                 case CARGAR_PARTIDA:
                     if(this.cargar()){
                         this.mensaje("La partida ha vuelto a el ultimo punto de control.");
-                        this.tablero.dibujar(this.jugador1, this.jugador2, this.jugador1.miTurno());
+                        this.tablero.dibujar(this.jugador1, this.jugador2);
                     }else{
                         this.mensajeError("La partida no se ha cargado correctamente.");
                     }
@@ -144,9 +149,9 @@ public class Partida implements Serializable{
      * @return si hay algun error al guardar devuelve false
      */
     public boolean guardar(){
-        int codigoJ1 = codigoJugadores + jugador1.getNombre().hashCode();
-        int codigoJ2 = codigoJugadores + jugador2.getNombre().hashCode();
-        int codigoT = codigoJugadores + "tablero".hashCode();
+        int codigoJ1 = nombre + jugador1.getNombre().hashCode();
+        int codigoJ2 = nombre + jugador2.getNombre().hashCode();
+        int codigoT = nombre + "tablero".hashCode();
         try{
         ObjectOutputStream outJ1 = new ObjectOutputStream(
         new FileOutputStream("./guardados/"+codigoJ1+".dat"));
@@ -175,9 +180,9 @@ public class Partida implements Serializable{
      * @return si hay algun error al cargar devuelve false
      */
     public boolean cargar(){
-        int codigoJ1 = codigoJugadores + jugador1.getNombre().hashCode();
-        int codigoJ2 = codigoJugadores + jugador2.getNombre().hashCode();
-        int codigoT = codigoJugadores + "tablero".hashCode();
+        int codigoJ1 = nombre + jugador1.getNombre().hashCode();
+        int codigoJ2 = nombre + jugador2.getNombre().hashCode();
+        int codigoT = nombre + "tablero".hashCode();
         
         try{
         ObjectInputStream inJ1 = new ObjectInputStream(
@@ -214,8 +219,9 @@ public class Partida implements Serializable{
      * @return opcion
      */
     public int pedirJugada(Jugador j){
-        int opcion = 0;
-        mensaje("Introduce una columna o pulsa una tecla no numerica para ver opciones.\nTurno de "+j.getNombre()+": \n");
+        int opcion;
+        mensaje("Introduce una columna o pulsa una tecla no numerica para "
+                + "ver opciones.\nTurno de "+j.getNombre()+": \n");
         try {
             opcion = this.leer.nextInt();
         } catch (InputMismatchException e) {
