@@ -149,25 +149,15 @@ public class Partida implements Serializable{
      * @return si hay algun error al guardar devuelve false
      */
     public boolean guardar(){
-        int codigoJ1 = nombre + jugador1.getNombre().hashCode();
-        int codigoJ2 = nombre + jugador2.getNombre().hashCode();
-        int codigoT = nombre + "tablero".hashCode();
         try{
-        ObjectOutputStream outJ1 = new ObjectOutputStream(
-        new FileOutputStream("./guardados/"+codigoJ1+".dat"));
-        ObjectOutputStream outJ2;
-        outJ2 = new ObjectOutputStream(
-        new FileOutputStream("./guardados/"+codigoJ2+".dat"));
-        ObjectOutputStream outT = new ObjectOutputStream(
-        new FileOutputStream("./guardados/"+codigoT+".dat"));
+        ObjectOutputStream out = new ObjectOutputStream(
+        new FileOutputStream("./guardados/"+this.nombre+".dat"));
         
-        outJ1.writeObject(jugador1);
-        outJ2.writeObject(jugador2);
-        outT.writeObject(tablero);
+        out.writeObject(jugador1);
+        out.writeObject(jugador2);
+        out.writeObject(tablero);
         
-        outJ1.close();
-        outJ2.close();
-        outT.close();
+        out.close();
         } catch (Exception ex) {
             return false;
         }
@@ -180,25 +170,15 @@ public class Partida implements Serializable{
      * @return si hay algun error al cargar devuelve false
      */
     public boolean cargar(){
-        int codigoJ1 = nombre + jugador1.getNombre().hashCode();
-        int codigoJ2 = nombre + jugador2.getNombre().hashCode();
-        int codigoT = nombre + "tablero".hashCode();
-        
         try{
-        ObjectInputStream inJ1 = new ObjectInputStream(
-        new FileInputStream("./guardados/"+codigoJ1+".dat"));
-        ObjectInputStream inJ2 = new ObjectInputStream(
-        new FileInputStream("./guardados/"+codigoJ2+".dat"));
-        ObjectInputStream inT = new ObjectInputStream(
-        new FileInputStream("./guardados/"+codigoT+".dat"));
+        ObjectInputStream in = new ObjectInputStream(
+        new FileInputStream("./guardados/"+this.nombre+".dat"));
         
-        jugador1 = (Jugador)inJ1.readObject();
-        jugador2 = (Jugador)inJ2.readObject();
-        tablero = (Tablero)inT.readObject();
+        jugador1 = (Jugador)in.readObject();
+        jugador2 = (Jugador)in.readObject();
+        tablero = (Tablero)in.readObject();
         
-        inJ1.close();
-        inJ2.close();
-        inT.close();
+        in.close();
         } catch (Exception ex) {
             return false;
         }
