@@ -8,12 +8,17 @@ import java.io.IOException;
  * @version 1.2
  */
 public class CuatroEnRaya {
-    /**
-     * @param args the command line arguments
-     */
     public static Partida partidaActual;
     public static void main(String[] args) throws IOException {
         partidaActual = new Partida();
-        partidaActual.jugar();
+            
+        while(true){        
+            if(partidaActual.jugar()){
+                partidaActual.mensaje("Volver a jugar.");
+            }else{
+                partidaActual.mensaje("Salir del juego.");
+                break;
+            }
+        } 
     } 
 }

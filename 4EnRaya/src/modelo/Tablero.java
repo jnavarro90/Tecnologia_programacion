@@ -36,11 +36,10 @@ public class Tablero implements Serializable{
      * @return true o false dependiendo si se ha realizado bien o mal 
      * la insercion de la ficha
      */
-    public boolean jugada(int col, String sim){
+    public boolean esJugadaValida(int col, String sim){
         if(col< MAX_COLUMNAS-1 && col >= 0){
-            for(int i = 1; i < MAX_FILAS; i++){
-                System.out.println(i+" "+col);
-                if(this.casillas [i][col].equals(".")){  
+            for(int i = 1; i < MAX_FILAS; i++){ 
+               if(this.casillas [i][col].equals(".")){  
                     this.casillas[i][col] = sim;
                     /**
                      * Guarda la ultima fila y la ultima columna 
@@ -88,10 +87,9 @@ public class Tablero implements Serializable{
         int iteradorDer = ultimaCol+1;
         int iteradorIzq = ultimaCol-1;
         int cont = 1;
-        boolean salir = false;
         boolean itIz = true;
         boolean itDe = true;
-        while(!salir){
+        while(true){
             //comprueba que este dento del tablero las comprobaciones
             if(iteradorDer > 5){
                 itDe = false;
@@ -131,29 +129,14 @@ public class Tablero implements Serializable{
     * @return true si hay cuatro en raya y false si no lo hay
     */
     private boolean comprVertical(){
-        int iteradorTop = ultimaFil+1;
         int iteradorBot = ultimaFil-1;
         int cont = 1;
-        boolean salir = false;
-        boolean ittop = true;
         boolean itbot = true;    
-        while(!salir){
+        while(true){
             
             //comprueba que este dento del tablero las comprobaciones
-            if(iteradorTop > 5){
-                ittop = false;
-            }
             if(iteradorBot < 1){
                 itbot = false;
-            }
-            
-            if(ittop){
-                if(this.casillas[ultimaFil][ultimaCol].equals(this.casillas[iteradorTop][ultimaCol])){
-                    cont++;
-                    iteradorTop++;
-                }else{
-                    ittop = false;
-                }
             }
             if(itbot){
                 if(this.casillas[ultimaFil][ultimaCol].equals(this.casillas[iteradorBot][ultimaCol])){
@@ -165,7 +148,7 @@ public class Tablero implements Serializable{
             }
             if(cont == 4){ //Si ha encontrado 4 fichas iguales devuelve true
                 return true;
-            }else if(!ittop && !itbot){ //Si no puede avanzar por la derecha ni por la izquierda sale del bucle
+            }else if(!itbot){ //Si no puede avanzar hacia abajo sale del bucle
                 break;
             }
         }
@@ -184,10 +167,9 @@ public class Tablero implements Serializable{
         int iteradorDiaIzqfil = ultimaFil-1;
         int iteradorDiaIzqcol = ultimaCol-1;
         int cont = 1;
-        boolean salir = false;
         boolean ittop = true;
         boolean itbot = true;    
-        while(!salir){
+        while(true){
             
             //comprueba que este dento del tablero las comprobaciones
             if(iteradorDiaDercol > 5 || iteradorDiaDerfil > 5){
@@ -237,10 +219,9 @@ public class Tablero implements Serializable{
         int iteradorDiaIzqfil = ultimaFil+1;
         int iteradorDiaIzqcol = ultimaCol-1;
         int cont = 1;
-        boolean salir = false;
         boolean ittop = true;
         boolean itbot = true;    
-        while(!salir){
+        while(true){
             //comprueba que este dento del tablero las comprobaciones
             if(iteradorDiaDercol > 5 || iteradorDiaDerfil < 1){
                 ittop = false;
@@ -302,14 +283,14 @@ public class Tablero implements Serializable{
     
     public boolean dibujar(Jugador j1, Jugador j2, Boolean t){
         int ultimaFila = MAX_FILAS;
-        System.out.println("|                    |");
-        System.out.print("|     4 en Raya      | Jugador: "+j1.getNombre());
+        System.out.println("|                    |Marcador");
+        System.out.print("|     4 en Raya      | "+j1.getGanadas()+"\t"+j1.getNombre());
         if(t){
             System.out.println("  <<");
         }else{
             System.out.println(" ");
         }
-        System.out.print("|____________________| Jugador: "+j2.getNombre());
+        System.out.print("|____________________| "+j2.getGanadas()+"\t"+j2.getNombre());
         if(!t){
             System.out.println("  <<");
         }else{
