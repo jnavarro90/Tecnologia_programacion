@@ -35,7 +35,7 @@ public class Tablero implements Serializable{
      * @return true o false dependiendo si se ha realizado bien o mal 
      * la insercion de la ficha
      */
-    public int esJugadaValida(int col, String sim){
+    public int esJugadaValida(int col){
         if(col< MAX_COLUMNAS-1 && col >= 0){
             for(int i = 1; i < MAX_FILAS; i++){
                if(this.casillas [i][col].equals(".")){
@@ -59,7 +59,8 @@ public class Tablero implements Serializable{
      * @return true si en el final de la partida y false si no lo es
      */
     public boolean finDePartida(int fil, int col){
-        return (comprVertical(fil, col) || comprHorizontal(fil, col) || comprDiagonalDer(fil, col) || comprDiagonalIzq(fil, col));
+        return (comprVertical(fil, col) || comprHorizontal(fil, col) ||
+                comprDiagonalDer(fil, col) || comprDiagonalIzq(fil, col));
     }
 
     /**
@@ -83,7 +84,8 @@ public class Tablero implements Serializable{
             }
             
             if(itDe){
-                if(this.casillas[fil][col].equals(this.casillas[fil][iteradorDer])){
+                if(this.casillas[fil][col].equals(
+                        this.casillas[fil][iteradorDer])){
                     numeroFichas++;
                     iteradorDer++;
                 }else{
@@ -91,16 +93,19 @@ public class Tablero implements Serializable{
                 }
             }
             if(itIz){
-                if(this.casillas[fil][col].equals(this.casillas[fil][iteradorIzq])){
+                if(this.casillas[fil][col].equals(
+                        this.casillas[fil][iteradorIzq])){
                     numeroFichas++;
                     iteradorIzq--;
                 }else{
                     itIz = false;
                 }
             }
-            if(numeroFichas == 4){ //Si ha encontrado 4 fichas iguales devuelve true
+            if(numeroFichas == 4){ 
+            //Si ha encontrado 4 fichas iguales devuelve true
                 return true;
-            }else if(!itDe && !itIz){ //Si no puede avanzar por la derecha ni por la izquierda sale del bucle
+            }else if(!itDe && !itIz){ 
+            //Si no puede avanzar por la derecha ni por la izq sale del bucle
                 break;
             }
         }
@@ -123,14 +128,16 @@ public class Tablero implements Serializable{
                 itbot = false;
             }
             if(itbot){
-                if(this.casillas[fil][col].equals(this.casillas[iteradorBot][col])){
+                if(this.casillas[fil][col].equals(
+                        this.casillas[iteradorBot][col])){
                     numeroFichas++;
                     iteradorBot--;
                 }else{
                     itbot = false;
                 }
             }
-            if(numeroFichas == 4){ //Si ha encontrado 4 fichas iguales devuelve true
+            if(numeroFichas == 4){ 
+            //Si ha encontrado 4 fichas iguales devuelve true
                 return true;
             }else if(!itbot){ //Si no puede avanzar hacia abajo sale del bucle
                 break;
@@ -164,7 +171,8 @@ public class Tablero implements Serializable{
             }
             
             if(ittop){
-                if(this.casillas[fil][col].equals(this.casillas[iteradorDiaDerfil][iteradorDiaDercol])){
+                if(this.casillas[fil][col].equals(
+                        this.casillas[iteradorDiaDerfil][iteradorDiaDercol])){
                     numeroFichas++;
                     iteradorDiaDerfil++;
                     iteradorDiaDercol++;
@@ -173,7 +181,8 @@ public class Tablero implements Serializable{
                 }
             }
             if(itbot){
-                if(this.casillas[fil][col].equals(this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol])){
+                if(this.casillas[fil][col].equals(
+                        this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol])){
                     numeroFichas++;
                     iteradorDiaIzqfil--;
                     iteradorDiaIzqcol--;
@@ -181,9 +190,11 @@ public class Tablero implements Serializable{
                     itbot = false;
                 }
             }
-            if(numeroFichas == 4){ //Si ha encontrado 4 fichas iguales devuelve true
+            if(numeroFichas == 4){ 
+            //Si ha encontrado 4 fichas iguales devuelve true
                 return true;
-            }else if(!ittop && !itbot){ //Si no puede avanzar por la derecha ni por la izquierda sale del bucle
+            }else if(!ittop && !itbot){ 
+            //Si no puede avanzar por la derecha ni por la izq sale del bucle
                 break;
             }
         }
@@ -215,7 +226,8 @@ public class Tablero implements Serializable{
             }
             
             if(ittop){
-                if(this.casillas[fil][col].equals(this.casillas[iteradorDiaDerfil][iteradorDiaDercol])){
+                if(this.casillas[fil][col].equals(
+                        this.casillas[iteradorDiaDerfil][iteradorDiaDercol])){
                     numeroFichas++;
                     iteradorDiaDerfil--;
                     iteradorDiaDercol++;
@@ -224,7 +236,8 @@ public class Tablero implements Serializable{
                 }
             }
             if(itbot){
-                if(this.casillas[fil][col].equals(this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol])){
+                if(this.casillas[fil][col].equals(
+                        this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol])){
                     numeroFichas++;
                     iteradorDiaIzqfil++;
                     iteradorDiaIzqcol--;
@@ -232,9 +245,11 @@ public class Tablero implements Serializable{
                     itbot = false;
                 }
             }
-            if(numeroFichas == 4){ //Si ha encontrado 4 fichas iguales devuelve true
+            if(numeroFichas == 4){ 
+            //Si ha encontrado 4 fichas iguales devuelve true
                 return true;
-            }else if(!ittop && !itbot){ //Si no puede avanzar por la derecha ni por la izquierda sale del bucle
+            }else if(!ittop && !itbot){ 
+            //Si no puede avanzar por la derecha ni por la izq sale del bucle
                 break; 
             }
         }
@@ -268,13 +283,15 @@ public class Tablero implements Serializable{
     public boolean dibujar(Jugador j1, Jugador j2){
         int ultimaFila = MAX_FILAS;
         System.out.println("|                    |Marcador");
-        System.out.print("|     4 en Raya      | "+j1.getGanadas()+"\t"+j1.getNombre());
+        System.out.print("|     4 en Raya      | "+j1.getGanadas()+"\t"+
+                j1.getNombre());
         if(j1.miTurno()){
             System.out.println("  <<");
         }else{
             System.out.println(" ");
         }
-        System.out.print("|____________________| "+j2.getGanadas()+"\t"+j2.getNombre());
+        System.out.print("|____________________| "+j2.getGanadas()+"\t"+
+                j2.getNombre());
         if(!j1.miTurno()){
             System.out.println("  <<");
         }else{
@@ -288,7 +305,8 @@ public class Tablero implements Serializable{
             }
             if(ultimaFila!=i) System.out.print(" |\n");
         }
-        System.out.print("|--------------------|   Movimientos: "+this.movimientos+"\n");
+        System.out.print("|--------------------|   Movimientos: "+
+                this.movimientos+"\n");
         return true;
     }
 }

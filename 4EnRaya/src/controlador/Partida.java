@@ -15,7 +15,7 @@ import modelo.Tablero;
  * @author Javi Navarro
  * @version 1.2
  */
-public class Partida implements Serializable{
+public class Partida{
     private final int SALIR_JUEGO = 1;
     private final int CARGAR_PARTIDA = 2;
     private final int GUARDAR_PARTIDA = 3;
@@ -55,10 +55,12 @@ public class Partida implements Serializable{
                         break;
                     case CARGAR_PARTIDA:
                         if(this.cargar()){
-                            this.mensaje("La partida se ha cargado correctamente.");
+                            this.mensaje("La partida se ha cargado "
+                                    + "correctamente.");
                             this.tablero.dibujar(this.jugador1, this.jugador2);
                         }else{
-                            this.mensajeError("No tienes ninguna partida guardada.\n"
+                            this.mensajeError("No tienes ninguna "
+                                    + "partida guardada.\n"
                                     + "Se ha empezado una partida nueva.");
                             this.tablero.dibujar(this.jugador1, this.jugador2);
                         }
@@ -78,6 +80,7 @@ public class Partida implements Serializable{
             }else{
                 jugadorActual = this.jugador2;
             }
+           
             columna = pedirJugada(jugadorActual);
             /**
              * Si la opcion no es -1 no hay error y si hay error 
@@ -88,18 +91,21 @@ public class Partida implements Serializable{
                  * Si la columna no es correcta dara error y seguira 
                  * sin saltar turno
                  */
-                fila = this.tablero.esJugadaValida(columna-1, jugadorActual.getSimbolo());
+                fila = this.tablero.esJugadaValida(columna-1);
                 if( fila != ERROR){
                     /**
-                    * Si la fila no es correcta (porque esta lleno) dara error y seguira 
+                    * Si la fila no es correcta (porque esta lleno) 
+                    * dara error y seguira 
                     * sin saltar turno
                     */
-                    this.tablero.ponerFicha(fila, columna-1, jugadorActual.getSimbolo());
+                    this.tablero.ponerFicha(fila, columna-1, 
+                            jugadorActual.getSimbolo());
                     this.cambiarTurno();
                     
                     this.tablero.dibujar(this.jugador1, this.jugador2);
                     if(this.tablero.finDePartida(fila, columna-1)){
-                        this.mensaje("¡Ganador: "+jugadorActual.getNombre()+"!");
+                        this.mensaje("¡Ganador: "
+                                +jugadorActual.getNombre()+"!");
                         jugadorActual.victoria();
                         break;
                     }else if(this.tablero.esEmpate()){
@@ -107,7 +113,8 @@ public class Partida implements Serializable{
                         break;
                     }
                 }else{
-                    this.mensajeError("No se pudo realizar su jugada, vuelve a intentarlo.");
+                    this.mensajeError("No se pudo realizar su jugada,"
+                            + " vuelve a intentarlo.");
                 }
             }else{
                 
@@ -117,18 +124,22 @@ public class Partida implements Serializable{
                     salir = true;
                 case GUARDAR_PARTIDA:
                     if(this.guardar()){
-                        this.mensaje("La partida se ha guardado correctamente.");
+                        this.mensaje("La partida se ha guardado "
+                                + "correctamente.");
                         this.tablero.dibujar(this.jugador1, this.jugador2);
                     }else{
-                        this.mensajeError("La partida no se ha guardado correctamente.");
+                        this.mensajeError("La partida no se ha guardado"
+                                + " correctamente.");
                     }
                     break;
                 case CARGAR_PARTIDA:
                     if(this.cargar()){
-                        this.mensaje("La partida ha vuelto a el ultimo punto de control.");
+                        this.mensaje("La partida ha vuelto a el ultimo punto"
+                                + " de control.");
                         this.tablero.dibujar(this.jugador1, this.jugador2);
                     }else{
-                        this.mensajeError("La partida no se ha cargado correctamente.");
+                        this.mensajeError("La partida no se ha cargado"
+                                + " correctamente.");
                     }
                     break;
                 case VOLVER:
