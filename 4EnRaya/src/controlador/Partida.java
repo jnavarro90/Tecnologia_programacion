@@ -22,6 +22,7 @@ public class Partida{
     private final int VOLVER = 4;
     private final int ERROR = -1;
     private final int NUEVA_PARTIDA = 5;
+    private final String RUTA_SAVE = "./guardados/";
     private Tablero tablero;
     private Jugador jugador1;
     private Jugador jugador2;
@@ -165,12 +166,12 @@ public class Partida{
         int codigoT = nombre + "tablero".hashCode();
         try{
         ObjectOutputStream outJ1 = new ObjectOutputStream(
-        new FileOutputStream("./guardados/"+codigoJ1+".dat"));
+        new FileOutputStream(RUTA_SAVE+codigoJ1+".dat"));
         ObjectOutputStream outJ2;
         outJ2 = new ObjectOutputStream(
-        new FileOutputStream("./guardados/"+codigoJ2+".dat"));
+        new FileOutputStream(RUTA_SAVE+codigoJ2+".dat"));
         ObjectOutputStream outT = new ObjectOutputStream(
-        new FileOutputStream("./guardados/"+codigoT+".dat"));
+        new FileOutputStream(RUTA_SAVE+codigoT+".dat"));
         
         outJ1.writeObject(jugador1);
         outJ2.writeObject(jugador2);
@@ -197,11 +198,11 @@ public class Partida{
         
         try{
         ObjectInputStream inJ1 = new ObjectInputStream(
-        new FileInputStream("./guardados/"+codigoJ1+".dat"));
+        new FileInputStream(RUTA_SAVE+codigoJ1+".dat"));
         ObjectInputStream inJ2 = new ObjectInputStream(
-        new FileInputStream("./guardados/"+codigoJ2+".dat"));
+        new FileInputStream(RUTA_SAVE+codigoJ2+".dat"));
         ObjectInputStream inT = new ObjectInputStream(
-        new FileInputStream("./guardados/"+codigoT+".dat"));
+        new FileInputStream(RUTA_SAVE+codigoT+".dat"));
         
         jugador1 = (Jugador)inJ1.readObject();
         jugador2 = (Jugador)inJ2.readObject();

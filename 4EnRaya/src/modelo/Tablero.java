@@ -8,8 +8,12 @@ import java.io.Serializable;
  * @version 1.2
  */
 public class Tablero implements Serializable{
-    private final int  MAX_COLUMNAS = 7;
-    private final int MAX_FILAS = 6;
+    private final int  MAX_COLUMNAS = 8;
+    private final int MAX_FILAS = 7;
+    private final int COL_MIN = 0;
+    private final int COL_MAX = 6;
+    private final int FIL_MAX = 6;
+    private final int FIL_MIN = 1;
     private final int ERROR = -1;
     private String casillas[][];
     private int movimientos;
@@ -76,10 +80,10 @@ public class Tablero implements Serializable{
         boolean itDe = true;
         while(true){
             //comprueba que este dento del tablero las comprobaciones
-            if(iteradorDer > 5){
+            if(iteradorDer > FIL_MAX){
                 itDe = false;
             }
-            if(iteradorIzq < 0){
+            if(iteradorIzq < COL_MIN){
                 itIz = false;
             }
             
@@ -124,7 +128,7 @@ public class Tablero implements Serializable{
         while(true){
             
             //comprueba que este dento del tablero las comprobaciones
-            if(iteradorBot < 1){
+            if(iteradorBot < FIL_MIN){
                 itbot = false;
             }
             if(itbot){
@@ -163,10 +167,10 @@ public class Tablero implements Serializable{
         while(true){
             
             //comprueba que este dento del tablero las comprobaciones
-            if(iteradorDiaDercol > 5 || iteradorDiaDerfil > 5){
+            if(iteradorDiaDercol > COL_MAX || iteradorDiaDerfil > FIL_MAX){
                 ittop = false;
             }
-            if(iteradorDiaIzqcol < 0  || iteradorDiaIzqfil < 0){
+            if(iteradorDiaIzqcol < COL_MIN  || iteradorDiaIzqfil < FIL_MIN){
                 itbot = false;
             }
             
@@ -218,10 +222,10 @@ public class Tablero implements Serializable{
         boolean itbot = true;    
         while(true){
             //comprueba que este dento del tablero las comprobaciones
-            if(iteradorDiaDercol > 5 || iteradorDiaDerfil < 1){
+            if(iteradorDiaDercol > COL_MAX || iteradorDiaDerfil < FIL_MIN){
                 ittop = false;
             }
-            if(iteradorDiaIzqcol < 0  || iteradorDiaIzqfil >5){
+            if(iteradorDiaIzqcol < COL_MIN  || iteradorDiaIzqfil > FIL_MAX){
                 itbot = false;
             }
             
@@ -283,29 +287,29 @@ public class Tablero implements Serializable{
     public boolean dibujar(Jugador j1, Jugador j2){
         int ultimaFila = MAX_FILAS;
         System.out.println("|                    |Marcador");
-        System.out.print("|     4 en Raya      | "+j1.getGanadas()+"\t"+
+        System.out.print("|     4 en Raya        | "+j1.getGanadas()+"\t"+
                 j1.getNombre());
         if(j1.miTurno()){
             System.out.println("  <<");
         }else{
             System.out.println(" ");
         }
-        System.out.print("|____________________| "+j2.getGanadas()+"\t"+
+        System.out.print("|______________________| "+j2.getGanadas()+"\t"+
                 j2.getNombre());
         if(!j1.miTurno()){
             System.out.println("  <<");
         }else{
             System.out.println(" ");
         }
-        System.out.println("|  1  2  3  4  5  6  |");
+        System.out.println("|  1  2  3  4  5  6  7 |");
         for (int i = MAX_FILAS-1;i>0;i--){
             if(ultimaFila!=i) System.out.print("| ");
             for(int j = 0; j<MAX_COLUMNAS-1;j++){
                 System.out.print(" "+this.casillas[i][j]+" ");             
             }
-            if(ultimaFila!=i) System.out.print(" |\n");
+            if(ultimaFila!=i) System.out.print("|\n");
         }
-        System.out.print("|--------------------|   Movimientos: "+
+        System.out.print("|----------------------|   Movimientos: "+
                 this.movimientos+"\n");
         return true;
     }
