@@ -9,6 +9,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import modelo.Jugador;
 import modelo.Tablero;
+import modelo.Casilla;
+import vista.IUGrafica;
 
 /**
  *
@@ -26,6 +28,7 @@ public class Partida{
     private Tablero tablero;
     private Jugador jugador1;
     private Jugador jugador2;
+    private IUGrafica vista;
     private int nombre;
     private Scanner leer;
     public Partida(){
@@ -36,6 +39,8 @@ public class Partida{
         this.jugador2 = new Jugador(this.leer.nextLine(), "o", false);
         nombre = jugador1.hashCode() + jugador2.hashCode();
         this.tablero = new Tablero();
+        this.vista = new IUGrafica();
+        this.vista.setVisible(true);
     }
     
     /**
@@ -50,7 +55,7 @@ public class Partida{
         //Si es la primera partida
         if(jugador1.getGanadas() == 0 && jugador2.getGanadas() == 0){
             //MENU INICIAL 
-                switch (this.menuInicial()){
+                switch (vista.menuInicial()){
                     case SALIR_JUEGO:
                         salir = true;
                         break;
@@ -222,6 +227,10 @@ public class Partida{
      */
     public void cambiarTurno(){
         this.jugador1.setTurno(!this.jugador1.miTurno());
+    }
+    
+    public Casilla [][] obtenerTablero(){
+        return tablero.getCasillas();
     }
     
     /**

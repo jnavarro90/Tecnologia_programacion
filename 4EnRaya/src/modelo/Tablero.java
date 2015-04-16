@@ -15,17 +15,17 @@ public class Tablero implements Serializable{
     private final int FIL_MAX = 6;
     private final int FIL_MIN = 1;
     private final int ERROR = -1;
-    private String casillas[][];
+    private Casilla casillas[][];
     private int movimientos;
     public Tablero() {
-        this.casillas = new String[MAX_FILAS][MAX_COLUMNAS];
+        this.casillas = new Casilla[MAX_FILAS][MAX_COLUMNAS];
         vaciar();
     }
     
     public void vaciar(){
         for (int i = MAX_FILAS-1;i>0;i--){
             for(int j = 0; j<MAX_COLUMNAS-1;j++){
-                this.casillas[i][j] = ".";
+                this.casillas[i][j] = new Casilla(i, j);
             }
         }
         this.movimientos = 0;
@@ -42,7 +42,7 @@ public class Tablero implements Serializable{
     public int esJugadaValida(int col){
         if(col< MAX_COLUMNAS-1 && col >= 0){
             for(int i = 1; i < MAX_FILAS; i++){
-               if(this.casillas [i][col].equals(".")){
+               if(this.casillas [i][col].getSimbolo().equals(".")){
                     return i;
                 }
             }
@@ -53,7 +53,7 @@ public class Tablero implements Serializable{
     }
     
     public void ponerFicha(int fil, int col, String sim){
-        this.casillas[fil][col] = sim;
+        this.casillas[fil][col] = new Casilla(fil, col, sim);
         this.movimientoHecho();
     }
     
@@ -88,8 +88,8 @@ public class Tablero implements Serializable{
             }
             
             if(itDe){
-                if(this.casillas[fil][col].equals(
-                        this.casillas[fil][iteradorDer])){
+                if(this.casillas[fil][col].getSimbolo().equals(
+                        this.casillas[fil][iteradorDer].getSimbolo())){
                     numeroFichas++;
                     iteradorDer++;
                 }else{
@@ -97,8 +97,8 @@ public class Tablero implements Serializable{
                 }
             }
             if(itIz){
-                if(this.casillas[fil][col].equals(
-                        this.casillas[fil][iteradorIzq])){
+                if(this.casillas[fil][col].getSimbolo().equals(
+                        this.casillas[fil][iteradorIzq].getSimbolo())){
                     numeroFichas++;
                     iteradorIzq--;
                 }else{
@@ -132,8 +132,8 @@ public class Tablero implements Serializable{
                 itbot = false;
             }
             if(itbot){
-                if(this.casillas[fil][col].equals(
-                        this.casillas[iteradorBot][col])){
+                if(this.casillas[fil][col].getSimbolo().equals(
+                        this.casillas[iteradorBot][col].getSimbolo())){
                     numeroFichas++;
                     iteradorBot--;
                 }else{
@@ -175,8 +175,8 @@ public class Tablero implements Serializable{
             }
             
             if(ittop){
-                if(this.casillas[fil][col].equals(
-                        this.casillas[iteradorDiaDerfil][iteradorDiaDercol])){
+                if(this.casillas[fil][col].getSimbolo().equals(
+                        this.casillas[iteradorDiaDerfil][iteradorDiaDercol].getSimbolo())){
                     numeroFichas++;
                     iteradorDiaDerfil++;
                     iteradorDiaDercol++;
@@ -185,8 +185,8 @@ public class Tablero implements Serializable{
                 }
             }
             if(itbot){
-                if(this.casillas[fil][col].equals(
-                        this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol])){
+                if(this.casillas[fil][col].getSimbolo().equals(
+                        this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol].getSimbolo())){
                     numeroFichas++;
                     iteradorDiaIzqfil--;
                     iteradorDiaIzqcol--;
@@ -230,8 +230,8 @@ public class Tablero implements Serializable{
             }
             
             if(ittop){
-                if(this.casillas[fil][col].equals(
-                        this.casillas[iteradorDiaDerfil][iteradorDiaDercol])){
+                if(this.casillas[fil][col].getSimbolo().equals(
+                        this.casillas[iteradorDiaDerfil][iteradorDiaDercol].getSimbolo())){
                     numeroFichas++;
                     iteradorDiaDerfil--;
                     iteradorDiaDercol++;
@@ -240,8 +240,8 @@ public class Tablero implements Serializable{
                 }
             }
             if(itbot){
-                if(this.casillas[fil][col].equals(
-                        this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol])){
+                if(this.casillas[fil][col].getSimbolo().equals(
+                        this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol].getSimbolo())){
                     numeroFichas++;
                     iteradorDiaIzqfil++;
                     iteradorDiaIzqcol--;
@@ -270,7 +270,7 @@ public class Tablero implements Serializable{
         return movimientos == (totalCasillas);
     }
     
-    public String[][] getCasillas() {
+    public Casilla[][] getCasillas() {
         return this.casillas;
     }
     
@@ -305,7 +305,7 @@ public class Tablero implements Serializable{
         for (int i = MAX_FILAS-1;i>0;i--){
             if(ultimaFila!=i) System.out.print("| ");
             for(int j = 0; j<MAX_COLUMNAS-1;j++){
-                System.out.print(" "+this.casillas[i][j]+" ");             
+                System.out.print(" "+this.casillas[i][j].getSimbolo()+" ");             
             }
             if(ultimaFila!=i) System.out.print("|\n");
         }
