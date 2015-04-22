@@ -57,7 +57,7 @@ public class Jugador implements Serializable{
 
     public int hashCode() {
         int resultado = 17;
-    //Para que no tenga en cuenta mayusculas y minusculas al generar el codigo
+//Para que no tenga en cuenta mayusculas y minusculas al generar el codigo
         String nLower = this.nombre.toLowerCase();
         String nUpper = this.nombre.toUpperCase();
                 

@@ -1,5 +1,7 @@
 package controlador;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -17,13 +19,14 @@ import vista.IUGrafica;
  * @author Javi Navarro
  * @version 1.2
  */
-public class Partida{
-    private final int SALIR_JUEGO = 1;
-    private final int CARGAR_PARTIDA = 2;
-    private final int GUARDAR_PARTIDA = 3;
-    private final int VOLVER = 4;
-    private final int ERROR = -1;
-    private final int NUEVA_PARTIDA = 5;
+public class Partida implements ActionListener{
+    private final String CARGAR_PARTIDA = "Cargar Partida";
+    private final String GUARDAR_PARTIDA = "Guardar Partida";
+    private final String VOLVER = "Volver";
+    private final String ERROR = "Error";
+    private final int ERROR_NUM = -1;
+    private final String NUEVA_PARTIDA = "Nueva Partida";
+    private final String SALIR = "Salir";
     private final String RUTA_SAVE = "./guardados/";
     private Tablero tablero;
     private Jugador jugador1;
@@ -31,16 +34,15 @@ public class Partida{
     private IUGrafica vista;
     private int nombre;
     private Scanner leer;
-    public Partida(){
-        this.leer = new Scanner(System.in);
-        this.mensaje("Introduce el nombre del Jugador 1: ");
-        this.jugador1 = new Jugador(this.leer.nextLine(), "#", true);
-        this.mensaje("Introduce el nombre del Jugador 2: ");
-        this.jugador2 = new Jugador(this.leer.nextLine(), "o", false);
+    private String opcionMenu = " ";
+    public Partida(IUGrafica v){
+        this.vista = v;
+        this.jugador1 = new Jugador(vista.preguntarNombre(
+                "Jugador 1"), "#", true);
+        this.jugador2 = new Jugador(vista.preguntarNombre(
+                "Jugador 2"), "o", false);
         nombre = jugador1.hashCode() + jugador2.hashCode();
         this.tablero = new Tablero();
-        this.vista = new IUGrafica();
-        this.vista.setVisible(true);
     }
     
     /**
@@ -52,27 +54,33 @@ public class Partida{
         int fila;
         boolean salir = false;
         Jugador jugadorActual;
+        vista.menuInicial();
+        while(opcionMenu == null){}
         //Si es la primera partida
         if(jugador1.getGanadas() == 0 && jugador2.getGanadas() == 0){
-            //MENU INICIAL 
-                switch (vista.menuInicial()){
-                    case SALIR_JUEGO:
+            //MENU INICIAL
+            System.out.println(opcionMenu);
+                switch (opcionMenu){
+                    case SALIR:
                         salir = true;
                         break;
                     case CARGAR_PARTIDA:
                         if(this.cargar()){
                             this.mensaje("La partida se ha cargado "
                                     + "correctamente.");
-                            this.tablero.dibujar(this.jugador1, this.jugador2);
+                            this.tablero.dibujar(
+                                    this.jugador1, this.jugador2);
                         }else{
                             this.mensajeError("No tienes ninguna "
                                     + "partida guardada.\n"
                                     + "Se ha empezado una partida nueva.");
-                            this.tablero.dibujar(this.jugador1, this.jugador2);
+                            this.tablero.dibujar(
+                                    this.jugador1, this.jugador2);
                         }
                         break;
                     case NUEVA_PARTIDA:
-                        this.tablero.dibujar(this.jugador1, this.jugador2);
+                        this.tablero.dibujar(
+                                this.jugador1, this.jugador2);
                         break;
                 }
         }else{
@@ -86,19 +94,19 @@ public class Partida{
             }else{
                 jugadorActual = this.jugador2;
             }
-           
-            columna = pedirJugada(jugadorActual);
+           columna = 0;
+            //columna = pedirJugada(jugadorActual);
             /**
              * Si la opcion no es -1 no hay error y si hay error 
              * seguira sin saltar turno
             */
-            if(columna != ERROR){
+            if(columna != ERROR_NUM){
                 /**
                  * Si la columna no es correcta dara error y seguira 
                  * sin saltar turno
                  */
                 fila = this.tablero.esJugadaValida(columna-1);
-                if( fila != ERROR){
+                if( fila != ERROR_NUM){
                     /**
                     * Si la fila no es correcta (porque esta lleno) 
                     * dara error y seguira 
@@ -125,14 +133,17 @@ public class Partida{
             }else{
                 
                 //MENU OPCIONES
-                switch (this.menuOpciones()){
-                case SALIR_JUEGO:
+                
+               // switch (this.menuOpciones()){
+                switch ("") {
+                case SALIR:
                     salir = true;
                 case GUARDAR_PARTIDA:
                     if(this.guardar()){
                         this.mensaje("La partida se ha guardado "
                                 + "correctamente.");
-                        this.tablero.dibujar(this.jugador1, this.jugador2);
+                        this.tablero.dibujar(this.jugador1, 
+                                this.jugador2);
                     }else{
                         this.mensajeError("La partida no se ha guardado"
                                 + " correctamente.");
@@ -140,9 +151,10 @@ public class Partida{
                     break;
                 case CARGAR_PARTIDA:
                     if(this.cargar()){
-                        this.mensaje("La partida ha vuelto a el ultimo punto"
-                                + " de control.");
-                        this.tablero.dibujar(this.jugador1, this.jugador2);
+                        this.mensaje("La partida ha vuelto a el"
+                                + " ultimo punto de control.");
+                        this.tablero.dibujar(this.jugador1, 
+                                this.jugador2);
                     }else{
                         this.mensajeError("La partida no se ha cargado"
                                 + " correctamente.");
@@ -158,11 +170,12 @@ public class Partida{
         return this.menuFinPartida();
     }
     /**
-     * El metodo guardar serializa el tablero y los dos jugadores, con eso 
-     * esta controlado todo lo que hay en la partida en ficheros con un codigo 
-     * hash conjunto de los jugadores con cada uno de sus nombres y 
-     * con el tablero, si dos jugadores ya tenian una partida 
-     * guardada la sobreescribe.
+     * El metodo guardar serializa el tablero y los dos jugadores, 
+     * con eso esta controlado todo lo que hay en la
+     * partida en ficheros con un codigo hash conjunto de
+     * los jugadores con cada uno de sus nombres y 
+     * con el tablero, si dos jugadores ya tenian una 
+     * partida guardada la sobreescribe.
      * @return si hay algun error al guardar devuelve false
      */
     public boolean guardar(){
@@ -222,8 +235,9 @@ public class Partida{
     return true;
     }
     /**
-     * Cambia la variable turno del jugador1 de valor, aunque los dos tienen
-     * una variable turno se puede controlar solo con uno de los jugadores.
+     * Cambia la variable turno del jugador1 de valor, 
+     * aunque los dos tienen una variable turno se puede
+     * controlar solo con uno de los jugadores.
      */
     public void cambiarTurno(){
         this.jugador1.setTurno(!this.jugador1.miTurno());
@@ -238,11 +252,12 @@ public class Partida{
      * Este método lo haría la vista
      * @param j
      * @return opcion
-     */
+     
     public int pedirJugada(Jugador j){
         int opcion;
-        mensaje("Introduce una columna o pulsa una tecla no numerica para "
-                + "ver opciones.\nTurno de "+j.getNombre()+": \n");
+        mensaje("Introduce una columna o pulsa una tecla no"
+                + " numerica para ver opciones.\n"
+                + "Turno de "+j.getNombre()+": \n");
         try {
             opcion = this.leer.nextInt();
         } catch (InputMismatchException e) {
@@ -256,7 +271,7 @@ public class Partida{
      * Pide al usuario una opcion para el menu de inicio
      * Este método lo haría la vista
      * @return pasa de letras a int que uso con constantes
-     */
+     
     public int menuInicial(){
         this.leer = new Scanner(System.in);
         this.mensaje("----------------------\n"
@@ -286,13 +301,6 @@ public class Partida{
      * @return true o false ya que solo hay dos opciones
      */
     public boolean menuFinPartida(){
-        this.leer = new Scanner(System.in);
-        this.mensaje("----------------------\n"
-                       + "OPCIONES: \n"
-                       + "v: Volver a jugar  \n"
-                       + "s: Salir del juego\n"
-                       + "----------------------\n");
-        mensaje("Introduce opcion: ");
         while(true){
             switch (this.leer.nextLine()){
                     case "s":
@@ -310,30 +318,8 @@ public class Partida{
      * Este método lo haría la vista
      * @return pasa de letras a int que uso con constantes
      */
-    public int menuOpciones(){
-        this.leer = new Scanner(System.in);
-        this.mensaje("----------------------\n"
-                       + "OPCIONES: \n"
-                       + "g: Guardar partida\n"
-                       + "c: Cargar checkpoint  \n"
-                       + "v: Volver\n"
-                       + "s: Salir del juego\n"
-                       + "----------------------\n");
-        mensaje("Introduce opcion: ");
-        switch (this.leer.nextLine()){
-                case "s":
-                    return SALIR_JUEGO;
-                case "g":
-                    return GUARDAR_PARTIDA;
-                case "c":
-                    return CARGAR_PARTIDA;
-                case "v":
-                    return VOLVER;
-                default:
-                        this.mensajeError("Opcion incorrecta");
-                        break;
-        }
-        return ERROR;
+    private String menuOpciones(String opcion){
+        return opcion;
     }
     /**
      * Escribe un mensaje por pantalla 
@@ -352,5 +338,11 @@ public class Partida{
      */
     public void mensajeError(String error){
         System.out.println("ERROR: "+error);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if(e.getActionCommand().equals(vista.SALIR)){
+            menuOpciones(vista.SALIR);
+        }
     }
 }

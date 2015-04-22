@@ -32,8 +32,8 @@ public class Tablero implements Serializable{
         
     }
     /**
-     * El metodo jugada comprobara si se puede hacer la jugada que el jugador
-     * ha introducido
+     * El metodo jugada comprobara si se puede hacer la
+     * jugada que el jugador ha introducido
      * @param col: columna en la que se quiere introducir la ficha
      * @param sim: El simbolo de la ficha
      * @return true o false dependiendo si se ha realizado bien o mal 
@@ -58,8 +58,9 @@ public class Tablero implements Serializable{
     }
     
     /**
-     * EL metodo finDePartida lleva toda la logica de comprobar si se ha hecho 
-     * cuatro en raya en diagonal, horizontal o vertical.
+     * EL metodo finDePartida lleva toda la logica de comprobar 
+     * si se ha hecho cuatro en raya en diagonal, 
+     * horizontal o vertical.
      * @return true si en el final de la partida y false si no lo es
      */
     public boolean finDePartida(int fil, int col){
@@ -68,7 +69,8 @@ public class Tablero implements Serializable{
     }
 
     /**
-    * El metodo comprHorizontal comprueba si se ha producido cuatro en raya
+    * El metodo comprHorizontal comprueba si se ha producido
+    * cuatro en raya
     * comprobando con dos iteradores en la posicon horizontal 
     * @return true si hay cuatro en raya y false si no lo hay
     */
@@ -80,7 +82,7 @@ public class Tablero implements Serializable{
         boolean itDe = true;
         while(true){
             //comprueba que este dento del tablero las comprobaciones
-            if(iteradorDer > FIL_MAX){
+            if(iteradorDer > COL_MAX){
                 itDe = false;
             }
             if(iteradorIzq < COL_MIN){
@@ -106,10 +108,10 @@ public class Tablero implements Serializable{
                 }
             }
             if(numeroFichas == 4){ 
-            //Si ha encontrado 4 fichas iguales devuelve true
+      //Si ha encontrado 4 fichas iguales devuelve true
                 return true;
             }else if(!itDe && !itIz){ 
-            //Si no puede avanzar por la derecha ni por la izq sale del bucle
+      //Si no puede avanzar por la derecha ni por la izq sale del bucle
                 break;
             }
         }
@@ -141,9 +143,10 @@ public class Tablero implements Serializable{
                 }
             }
             if(numeroFichas == 4){ 
-            //Si ha encontrado 4 fichas iguales devuelve true
+//Si ha encontrado 4 fichas iguales devuelve true
                 return true;
-            }else if(!itbot){ //Si no puede avanzar hacia abajo sale del bucle
+            }else if(!itbot){ 
+//Si no puede avanzar hacia abajo sale del bucle
                 break;
             }
         }
@@ -151,8 +154,9 @@ public class Tablero implements Serializable{
     }
    
     /**
-    * El metodo comprDiagonalDer comprueba si se ha producido cuatro en raya
-    * comprobando con dos iteradores para derecha y otros dos para la derecha
+    * El metodo comprDiagonalDer comprueba si se ha producido
+    * cuatro en raya comprobando con dos iteradores para 
+    * derecha y otros dos para la derecha
     * en la posicon diagonal hacia la derecha 
     * @return true si hay cuatro en raya y false si no lo hay
     */
@@ -167,16 +171,19 @@ public class Tablero implements Serializable{
         while(true){
             
             //comprueba que este dento del tablero las comprobaciones
-            if(iteradorDiaDercol > COL_MAX || iteradorDiaDerfil > FIL_MAX){
+            if(iteradorDiaDercol > COL_MAX ||
+                    iteradorDiaDerfil > FIL_MAX){
                 ittop = false;
             }
-            if(iteradorDiaIzqcol < COL_MIN  || iteradorDiaIzqfil < FIL_MIN){
+            if(iteradorDiaIzqcol < COL_MIN  ||
+                    iteradorDiaIzqfil < FIL_MIN){
                 itbot = false;
             }
             
             if(ittop){
                 if(this.casillas[fil][col].getSimbolo().equals(
-                        this.casillas[iteradorDiaDerfil][iteradorDiaDercol].getSimbolo())){
+                        this.casillas[iteradorDiaDerfil][iteradorDiaDercol]
+                                .getSimbolo())){
                     numeroFichas++;
                     iteradorDiaDerfil++;
                     iteradorDiaDercol++;
@@ -186,7 +193,8 @@ public class Tablero implements Serializable{
             }
             if(itbot){
                 if(this.casillas[fil][col].getSimbolo().equals(
-                        this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol].getSimbolo())){
+                        this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol]
+                                .getSimbolo())){
                     numeroFichas++;
                     iteradorDiaIzqfil--;
                     iteradorDiaIzqcol--;
@@ -195,10 +203,10 @@ public class Tablero implements Serializable{
                 }
             }
             if(numeroFichas == 4){ 
-            //Si ha encontrado 4 fichas iguales devuelve true
+     //Si ha encontrado 4 fichas iguales devuelve true
                 return true;
             }else if(!ittop && !itbot){ 
-            //Si no puede avanzar por la derecha ni por la izq sale del bucle
+     //Si no puede avanzar por la derecha ni por la izq sale del bucle
                 break;
             }
         }
@@ -207,8 +215,9 @@ public class Tablero implements Serializable{
     }
     
     /**
-    * El metodo comprDiagonalIzq comprueba si se ha producido cuatro en raya
-    * comprobando con dos iteradores para derecha y otros dos para la derecha
+    * El metodo comprDiagonalIzq comprueba si se ha producido 
+    * cuatro en raya comprobando con dos iteradores
+    * para derecha y otros dos para la derecha
     * en la posicon diagonal hacia la izquierda 
     * @return true si hay cuatro en raya y false si no lo hay
     */
@@ -222,16 +231,19 @@ public class Tablero implements Serializable{
         boolean itbot = true;    
         while(true){
             //comprueba que este dento del tablero las comprobaciones
-            if(iteradorDiaDercol > COL_MAX || iteradorDiaDerfil < FIL_MIN){
+            if(iteradorDiaDercol > COL_MAX ||
+                    iteradorDiaDerfil < FIL_MIN){
                 ittop = false;
             }
-            if(iteradorDiaIzqcol < COL_MIN  || iteradorDiaIzqfil > FIL_MAX){
+            if(iteradorDiaIzqcol < COL_MIN  || 
+                    iteradorDiaIzqfil > FIL_MAX){
                 itbot = false;
             }
             
             if(ittop){
                 if(this.casillas[fil][col].getSimbolo().equals(
-                        this.casillas[iteradorDiaDerfil][iteradorDiaDercol].getSimbolo())){
+                        this.casillas[iteradorDiaDerfil][iteradorDiaDercol]
+                                .getSimbolo())){
                     numeroFichas++;
                     iteradorDiaDerfil--;
                     iteradorDiaDercol++;
@@ -241,7 +253,8 @@ public class Tablero implements Serializable{
             }
             if(itbot){
                 if(this.casillas[fil][col].getSimbolo().equals(
-                        this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol].getSimbolo())){
+                        this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol]
+                                .getSimbolo())){
                     numeroFichas++;
                     iteradorDiaIzqfil++;
                     iteradorDiaIzqcol--;
@@ -250,10 +263,10 @@ public class Tablero implements Serializable{
                 }
             }
             if(numeroFichas == 4){ 
-            //Si ha encontrado 4 fichas iguales devuelve true
+  //Si ha encontrado 4 fichas iguales devuelve true
                 return true;
             }else if(!ittop && !itbot){ 
-            //Si no puede avanzar por la derecha ni por la izq sale del bucle
+   //Si no puede avanzar por la derecha ni por la izq sale del bucle
                 break; 
             }
         }

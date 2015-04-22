@@ -244,35 +244,4 @@ public class TableroSwing extends JFrame implements ActionListener, Observador {
     
     System.exit(0);  
   }
-  
-  /**
-   * main
-   */
-  public static void main(String[] args) {
-    SwingUtilities.invokeLater(new Runnable() {
-      @Override
-      public void run() { 
-        try {
-          // Lenguaje español
-          //RecursosAppSwing recSwingApp = RecursosAppSwing.instancia("es.xml");
-          
-          // Lenguaje inglés
-          RecursosAppSwing recSwingApp = RecursosAppSwing.instancia("en.xml");
-          TableroSwing tableroSwing = 
-            new TableroSwing(8, 16, recSwingApp);
-                    
-          for (int i = 0; i < 20; i++)
-            tableroSwing.jugadores.addElement("Jugador" + i);
-                    
-          tableroSwing.tableroVista.ponerIconoCasilla(5, 3, 
-                                                recSwingApp.getIconoApp());
-          tableroSwing.tableroVista.ponerIconoCasilla(5 ,10, 
-                                                recSwingApp.getIconoApp()); 
-        } catch (Exception ex) {
-          Logger.getLogger(TableroSwing.class.getName()).log(Level.SEVERE, 
-                                                             null, ex);
-        }       
-      }
-    });	
-  }
 }

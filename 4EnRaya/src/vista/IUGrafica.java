@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import utilidades.RecursosAppSwing;
 
 /**
@@ -27,40 +30,66 @@ import utilidades.RecursosAppSwing;
  * @author javi
  */
 public class IUGrafica extends JFrame implements ActionListener{
-  /** Identificadores de textos dependientes de idioma */
-  private static final String MENU_FICHERO = "MENU_FICHERO";
-  private static final String MENU_ITEM_SALIR = "MENU_ITEM_SALIR";
-  private static final String MENU_AYUDA = "MENU_AYUDA";
-  private static final String MENU_ITEM_ACERCA_DE = "MENU_ITEM_ACERCA_DE";
-  private static final String ETIQUETA_CONTRINCANTE = "CONTRINCANTE";
-  private static final String BOTON_INVITAR = "BOTON_INVITAR";
-  private static final String ESTADO_TABLERO = "ESTADO_TABLERO";
-  private RecursosAppSwing recSwingApp;
-  private JList listaJugadores;
-  private JLabel contrincante;
-  private DefaultListModel jugadores;
-  private JButton botonInvitar;
-  private JLabel estadoTablero;
-  private JPanel panel;
+  
+    private JButton botonAceptarJugador;
+    private JButton botonOpcionMenu;
+    private JLabel mensajeJugador;
+    private JPanel panel;
+    private JTextField nombreJugador;
+    private String devolverNombre;
+    private MenuJugadorNombre menuJugador;
+    public final String CARGAR_PARTIDA = "Cargar Partida";
+    public final String GUARDAR_PARTIDA = "Guardar Partida";
+    public final String VOLVER = "Volver";
+    public final String ERROR = "Error";
+    public final String NUEVA_PARTIDA = "Nueva Partida";
+    public final String SALIR = "Salir";
+    public final String ACERCA_DE = "Acerca de ..";
+    public IUGrafica(){
+        /*
+        SwingUtilities.invokeLater(new Runnable() {
+      @Override
+      public void run() { 
+        try {
+          // Lenguaje español
+          //RecursosAppSwing recSwingApp = RecursosAppSwing.instancia("es.xml");
+          
+          // Lenguaje inglés
+          RecursosAppSwing recSwingApp = RecursosAppSwing.instancia("en.xml");
+          TableroSwing tableroSwing = 
+            new TableroSwing(8, 16, recSwingApp); 
+        } catch (Exception ex) {
+          Logger.getLogger(TableroSwing.class.getName()).log(Level.SEVERE, 
+                                                             null, ex);
+        }       
+      }
+    });	
+                */
+        
+    }
 
-    public int menuInicial(){
-        JTextField txtTexto=new JTextField();
-        panel = new JPanel();
-        botonInvitar = new JButton("OK");
-        botonInvitar.addActionListener(this);
-        estadoTablero = new JLabel();
-        panel.add(botonInvitar, BorderLayout.NORTH);
-        panel.add(estadoTablero, BorderLayout.SOUTH);
-        panel.add(txtTexto, BorderLayout.CENTER);
-        this.add(panel);
-        return 0;
+    public void menuInicial(){
+        
+        menuJugador = new MenuJugadorNombre("Menu Inicial");
+        menuJugador.obtenerOpcionMenu();
     }
     
-
+    public String preguntarNombre(String titulo){
+       
+        menuJugador = new MenuJugadorNombre("Jugador 1");
+        return menuJugador.obtenerNombreJugador(titulo);
+    }
+    
+    public void addControlador(ActionListener controlador){
+        menuJugador.addControlador(controlador);
+    }
+            
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == botonInvitar){
-            estadoTablero.setText("Tablero actualizado");
+        if(e.getSource() == botonAceptarJugador){
+            mensajeJugador.setText("Tablero actualizado");
+            devolverNombre = nombreJugador.getText();
+            
         }
     }
   

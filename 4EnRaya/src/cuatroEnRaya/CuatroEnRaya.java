@@ -2,6 +2,7 @@ package cuatroEnRaya;
 
 import controlador.Partida;
 import java.io.IOException;
+import vista.IUGrafica;
 /**
  *
  * @author Javi Navarro
@@ -9,8 +10,11 @@ import java.io.IOException;
  */
 public class CuatroEnRaya {
     public static Partida partidaActual;
+    public static IUGrafica vista;
     public static void main(String[] args) throws IOException {
-        partidaActual = new Partida();
+        vista = new IUGrafica();
+        partidaActual = new Partida(vista);
+        vista.addControlador(partidaActual);
             
         while(true){        
             if(partidaActual.jugar()){
