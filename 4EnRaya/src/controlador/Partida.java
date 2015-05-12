@@ -11,8 +11,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import modelo.Jugador;
 import modelo.Tablero;
-import modelo.Casilla;
-import vista.IUGrafica;
 
 /**
  *
@@ -31,7 +29,6 @@ public class Partida implements ActionListener{
     private Tablero tablero;
     private Jugador jugador1;
     private Jugador jugador2;
-    private IUGrafica vista;
     private int nombre;
     private Scanner leer;
     private String opcionMenu = " ";
@@ -58,10 +55,16 @@ public class Partida implements ActionListener{
         while(opcionMenu == null){}
         //Si es la primera partida
         if(jugador1.getGanadas() == 0 && jugador2.getGanadas() == 0){
+<<<<<<< HEAD
             //MENU INICIAL
             System.out.println(opcionMenu);
                 switch (opcionMenu){
                     case SALIR:
+=======
+            //MENU INICIAL 
+                switch (this.menuInicial()){
+                    case SALIR_JUEGO:
+>>>>>>> parent of 2103160... TP_P1_cambios antes de entregar
                         salir = true;
                         break;
                     case CARGAR_PARTIDA:
@@ -241,10 +244,6 @@ public class Partida implements ActionListener{
      */
     public void cambiarTurno(){
         this.jugador1.setTurno(!this.jugador1.miTurno());
-    }
-    
-    public Casilla [][] obtenerTablero(){
-        return tablero.getCasillas();
     }
     
     /**
