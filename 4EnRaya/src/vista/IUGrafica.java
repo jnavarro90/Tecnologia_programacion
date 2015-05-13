@@ -5,7 +5,6 @@
  */
 package vista;
 
-<<<<<<< HEAD
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -25,14 +24,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import utilidades.RecursosAppSwing;
-
-=======
->>>>>>> parent of 2103160... TP_P1_cambios antes de entregar
 /**
  *
  * @author javi
  */
-<<<<<<< HEAD
 public class IUGrafica extends JFrame implements ActionListener{
   
     private JButton botonAceptarJugador;
@@ -96,9 +91,4 @@ public class IUGrafica extends JFrame implements ActionListener{
             
         }
     }
-  
-=======
-public class IUGrafica {
-    
->>>>>>> parent of 2103160... TP_P1_cambios antes de entregar
 }

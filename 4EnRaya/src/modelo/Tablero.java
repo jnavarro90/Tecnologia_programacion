@@ -15,17 +15,17 @@ public class Tablero implements Serializable{
     private final int FIL_MAX = 6;
     private final int FIL_MIN = 1;
     private final int ERROR = -1;
-    private String casillas[][];
+    private Casilla casillas[][];
     private int movimientos;
     public Tablero() {
-        this.casillas = new String[MAX_FILAS][MAX_COLUMNAS];
+        this.casillas = new Casilla[MAX_FILAS][MAX_COLUMNAS];
         vaciar();
     }
     
     public void vaciar(){
         for (int i = MAX_FILAS-1;i>0;i--){
             for(int j = 0; j<MAX_COLUMNAS-1;j++){
-                this.casillas[i][j] = ".";
+                this.casillas[i][j] = new Casilla(i, j, ".");
             }
         }
         this.movimientos = 0;
@@ -53,7 +53,7 @@ public class Tablero implements Serializable{
     }
     
     public void ponerFicha(int fil, int col, String sim){
-        this.casillas[fil][col] = sim;
+        this.casillas[fil][col].setSimbolo(sim);
         this.movimientoHecho();
     }
     
@@ -181,14 +181,9 @@ public class Tablero implements Serializable{
             }
             
             if(ittop){
-<<<<<<< HEAD
                 if(this.casillas[fil][col].getSimbolo().equals(
                         this.casillas[iteradorDiaDerfil][iteradorDiaDercol]
                                 .getSimbolo())){
-=======
-                if(this.casillas[fil][col].equals(
-                        this.casillas[iteradorDiaDerfil][iteradorDiaDercol])){
->>>>>>> parent of 2103160... TP_P1_cambios antes de entregar
                     numeroFichas++;
                     iteradorDiaDerfil++;
                     iteradorDiaDercol++;
@@ -197,14 +192,9 @@ public class Tablero implements Serializable{
                 }
             }
             if(itbot){
-<<<<<<< HEAD
                 if(this.casillas[fil][col].getSimbolo().equals(
                         this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol]
                                 .getSimbolo())){
-=======
-                if(this.casillas[fil][col].equals(
-                        this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol])){
->>>>>>> parent of 2103160... TP_P1_cambios antes de entregar
                     numeroFichas++;
                     iteradorDiaIzqfil--;
                     iteradorDiaIzqcol--;
@@ -251,14 +241,9 @@ public class Tablero implements Serializable{
             }
             
             if(ittop){
-<<<<<<< HEAD
                 if(this.casillas[fil][col].getSimbolo().equals(
                         this.casillas[iteradorDiaDerfil][iteradorDiaDercol]
                                 .getSimbolo())){
-=======
-                if(this.casillas[fil][col].equals(
-                        this.casillas[iteradorDiaDerfil][iteradorDiaDercol])){
->>>>>>> parent of 2103160... TP_P1_cambios antes de entregar
                     numeroFichas++;
                     iteradorDiaDerfil--;
                     iteradorDiaDercol++;
@@ -267,14 +252,10 @@ public class Tablero implements Serializable{
                 }
             }
             if(itbot){
-<<<<<<< HEAD
+
                 if(this.casillas[fil][col].getSimbolo().equals(
                         this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol]
                                 .getSimbolo())){
-=======
-                if(this.casillas[fil][col].equals(
-                        this.casillas[iteradorDiaIzqfil][iteradorDiaIzqcol])){
->>>>>>> parent of 2103160... TP_P1_cambios antes de entregar
                     numeroFichas++;
                     iteradorDiaIzqfil++;
                     iteradorDiaIzqcol--;
@@ -303,7 +284,7 @@ public class Tablero implements Serializable{
         return movimientos == (totalCasillas);
     }
     
-    public String[][] getCasillas() {
+    public Casilla[][] getCasillas() {
         return this.casillas;
     }
     

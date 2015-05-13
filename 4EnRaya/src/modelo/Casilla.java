@@ -38,6 +38,11 @@ public class Casilla {
   public int getFil() {
     return fil;
   }
+
+    public void setSimbolo(String simbolo) {
+        this.simbolo = simbolo;
+    }
+  
   public String getSimbolo(){
       return simbolo;
   }

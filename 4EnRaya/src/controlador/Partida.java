@@ -11,6 +11,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import modelo.Jugador;
 import modelo.Tablero;
+import vista.IUGrafica;
 
 /**
  *
@@ -26,6 +27,7 @@ public class Partida implements ActionListener{
     private final String NUEVA_PARTIDA = "Nueva Partida";
     private final String SALIR = "Salir";
     private final String RUTA_SAVE = "./guardados/";
+    private IUGrafica vista;
     private Tablero tablero;
     private Jugador jugador1;
     private Jugador jugador2;
@@ -55,16 +57,10 @@ public class Partida implements ActionListener{
         while(opcionMenu == null){}
         //Si es la primera partida
         if(jugador1.getGanadas() == 0 && jugador2.getGanadas() == 0){
-<<<<<<< HEAD
             //MENU INICIAL
             System.out.println(opcionMenu);
                 switch (opcionMenu){
                     case SALIR:
-=======
-            //MENU INICIAL 
-                switch (this.menuInicial()){
-                    case SALIR_JUEGO:
->>>>>>> parent of 2103160... TP_P1_cambios antes de entregar
                         salir = true;
                         break;
                     case CARGAR_PARTIDA:
