@@ -12,7 +12,7 @@ public class Casilla {
       /**
    * Casilla
    */
-  Casilla(int fil, int col, String simbolo) {
+  public Casilla(int fil, int col, String simbolo) {
     this.fil = fil;
     this.col = col;
     this.simbolo = simbolo;
@@ -21,7 +21,7 @@ public class Casilla {
   /**
    * Casilla
    */
-  Casilla(int fil, int col) {
+  public Casilla(int fil, int col) {
     this(fil, col, ".");
   }
 

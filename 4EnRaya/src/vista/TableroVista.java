@@ -86,8 +86,9 @@ public class TableroVista extends JPanel {
   /**
    * notifica
    */  
-  public void notifica(CasillaVista casilla) {
-    for(Observador observador: observadores)
-      observador.actualiza(casilla);
+  public void notifica(CasillaVista casillaVista) {
+    for(Observador observador: observadores){
+        observador.actualiza(casillaVista);
+    }    
   }
 }

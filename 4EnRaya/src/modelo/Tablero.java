@@ -39,16 +39,16 @@ public class Tablero implements Serializable{
      * @return true o false dependiendo si se ha realizado bien o mal 
      * la insercion de la ficha
      */
-    public int esJugadaValida(int col){
+    public boolean esJugadaValida(int col){
         if(col< MAX_COLUMNAS-1 && col >= 0){
             for(int i = 1; i < MAX_FILAS; i++){
                if(this.casillas [i][col].equals(".")){
-                    return i;
+                    return true;
                 }
             }
-            return ERROR;
+            return false;
         }else{
-            return ERROR;
+            return false;
         }
     }
     
@@ -319,7 +319,7 @@ public class Tablero implements Serializable{
         for (int i = MAX_FILAS-1;i>0;i--){
             if(ultimaFila!=i) System.out.print("| ");
             for(int j = 0; j<MAX_COLUMNAS-1;j++){
-                System.out.print(" "+this.casillas[i][j]+" ");             
+                System.out.print(" "+this.casillas[i][j].getSimbolo()+" ");             
             }
             if(ultimaFila!=i) System.out.print("|\n");
         }

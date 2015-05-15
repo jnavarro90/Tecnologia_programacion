@@ -235,7 +235,10 @@ public class TableroSwing extends JFrame implements ActionListener, Observador {
        botonInvitar.setEnabled(false);
     }
   }
-
+  
+ public void nuevoObservador(Observador controlador){
+        tableroVista.nuevoObservador(controlador);
+ }
   /**
    * acaba
    */  

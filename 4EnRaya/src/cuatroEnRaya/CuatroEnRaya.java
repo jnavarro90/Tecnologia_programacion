@@ -1,5 +1,6 @@
 package cuatroEnRaya;
 
+import controlador.ControlMenus;
 import controlador.Partida;
 import java.io.IOException;
 import vista.IUGrafica;
@@ -11,18 +12,10 @@ import vista.IUGrafica;
 public class CuatroEnRaya {
     public static Partida partidaActual;
     public static IUGrafica vista;
+    public static ControlMenus menu;
     public static void main(String[] args) throws IOException {
         vista = new IUGrafica();
+
         partidaActual = new Partida(vista);
-        vista.addControlador(partidaActual);
-            
-        while(true){        
-            if(partidaActual.jugar()){
-                partidaActual.mensaje("Volver a jugar.");
-            }else{
-                partidaActual.mensaje("Salir del juego.");
-                break;
-            }
-        } 
-    } 
+    }
 }

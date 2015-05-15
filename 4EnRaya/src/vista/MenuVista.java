@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JButton;
@@ -21,7 +22,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class MenuJugadorNombre extends JFrame implements Observer{
+public class MenuVista extends JFrame implements ActionListener{
     public final String CARGAR_PARTIDA = "Cargar Partida";
     public final String GUARDAR_PARTIDA = "Guardar Partida";
     public final String VOLVER = "Volver";
@@ -36,7 +37,8 @@ public class MenuJugadorNombre extends JFrame implements Observer{
     private JMenuItem menuFicheroSalir;
     private JMenu menuAyuda;
     private JMenuItem menuAyudaAcercaDe;
-    public MenuJugadorNombre(String titulo){
+    private Observador observador;
+    public MenuVista(String titulo){
         super(titulo);
         this.titulo = titulo;
     }
@@ -83,6 +85,10 @@ public class MenuJugadorNombre extends JFrame implements Observer{
         panelBotones.add(botonNuevaPartida);
         panelBotones.add(botonCargarPartida);
         panelBotones.add(botonSalir);
+        
+        botonNuevaPartida.addActionListener(this);
+        botonCargarPartida.addActionListener(this);
+        botonSalir.addActionListener(this);
 
         getContentPane().add(panelBotones, BorderLayout.SOUTH);
         JLabel etiquetaNombre = new JLabel();
@@ -95,15 +101,24 @@ public class MenuJugadorNombre extends JFrame implements Observer{
         setResizable(false);
     }
 
-    public void addControlador(ActionListener controlador){
-        botonSalir.addActionListener(controlador);
-        botonCargarPartida.addActionListener(controlador);
-        botonNuevaPartida.addActionListener(controlador);
-        menuAyudaAcercaDe.addActionListener(controlador);
-        menuFicheroSalir.addActionListener(controlador);
-    }
-
-    public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   /**
+   * nuevoObservador
+   */   
+  public void nuevoObservador(Observador observador) {
+    this.observador = observador;
+  }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getActionCommand().equals(NUEVA_PARTIDA)){
+            observador.actualiza(NUEVA_PARTIDA);
+            this.setVisible(false);
+        }else if(e.getActionCommand().equals(CARGAR_PARTIDA)){           
+            observador.actualiza(CARGAR_PARTIDA); 
+            this.setVisible(false);
+        }else if(e.getActionCommand().equals(SALIR)){        
+            observador.actualiza(SALIR);  
+            this.setVisible(false);
+        }
     }
 }

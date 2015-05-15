@@ -5,38 +5,21 @@
  */
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+import modelo.Jugador;
 import utilidades.RecursosAppSwing;
+
 /**
  *
  * @author javi
  */
-public class IUGrafica extends JFrame implements ActionListener{
+public class IUGrafica extends JFrame{
   
-    private JButton botonAceptarJugador;
-    private JButton botonOpcionMenu;
-    private JLabel mensajeJugador;
-    private JPanel panel;
-    private JTextField nombreJugador;
     private String devolverNombre;
-    private MenuJugadorNombre menuJugador;
+    private MenuVista menuJugador;
+    private TableroSwing tablero;
     public final String CARGAR_PARTIDA = "Cargar Partida";
     public final String GUARDAR_PARTIDA = "Guardar Partida";
     public final String VOLVER = "Volver";
@@ -68,27 +51,25 @@ public class IUGrafica extends JFrame implements ActionListener{
     }
 
     public void menuInicial(){
-        
-        menuJugador = new MenuJugadorNombre("Menu Inicial");
+        menuJugador = new MenuVista("Menu Inicial");
         menuJugador.obtenerOpcionMenu();
     }
     
     public String preguntarNombre(String titulo){
        
-        menuJugador = new MenuJugadorNombre("Jugador 1");
+        menuJugador = new MenuVista("Jugador 1");
         return menuJugador.obtenerNombreJugador(titulo);
     }
     
-    public void addControlador(ActionListener controlador){
-        menuJugador.addControlador(controlador);
+    public void pintarTablero(Jugador j1, Jugador j2){
+        RecursosAppSwing recSwingApp = RecursosAppSwing.instancia("es.xml");
+        tablero = new TableroSwing(8, 16, recSwingApp);
     }
-            
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == botonAceptarJugador){
-            mensajeJugador.setText("Tablero actualizado");
-            devolverNombre = nombreJugador.getText();
-            
-        }
+    public void addObservadorMenus(Observador controlador){
+        menuJugador.nuevoObservador(controlador);
+    }
+    
+    public void addObservadorTablero(Observador controlador){
+        tablero.nuevoObservador(controlador);
     }
 }
